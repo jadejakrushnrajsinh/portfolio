@@ -1,0 +1,1 @@
+- [x] Modify script.js to load projects statically instead of from API
