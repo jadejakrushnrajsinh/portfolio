@@ -1,16 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const Message = require("../models/Message");
+const { authenticateToken } = require("../middleware/auth");
+const { validateContact } = require("../middleware/validation");
 
 // POST /api/contact
-router.post("/", async (req, res) => {
+router.post("/", validateContact, async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
-
-    // Validate input
-    if (!name || !email || !subject || !message) {
-      return res.status(400).json({ error: "All fields are required" });
-    }
 
     // Save message to database
     const newMessage = new Message({ name, email, subject, message });
@@ -24,7 +21,7 @@ router.post("/", async (req, res) => {
 });
 
 // GET /api/contact (optional, for admin to view messages)
-router.get("/", async (req, res) => {
+router.get("/", authenticateToken, async (req, res) => {
   try {
     const messages = await Message.find().sort({ createdAt: -1 });
     res.json(messages);
@@ -35,7 +32,7 @@ router.get("/", async (req, res) => {
 });
 
 // DELETE /api/contact/:id
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
     const deletedMessage = await Message.findByIdAndDelete(id);

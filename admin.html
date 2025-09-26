@@ -289,27 +289,48 @@
     </div>
 
     <script>
+        function getAuthHeaders() {
+            const token = localStorage.getItem('adminToken');
+            return {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            };
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             // Check if already logged in
-            if (localStorage.getItem('adminLoggedIn') === 'true') {
+            if (localStorage.getItem('adminToken')) {
                 showDashboard();
             } else {
                 showLogin();
             }
 
             // Handle login form
-            document.getElementById('login-form').addEventListener('submit', function (e) {
+            document.getElementById('login-form').addEventListener('submit', async function (e) {
                 e.preventDefault();
                 const email = document.getElementById('email').value;
                 const password = document.getElementById('password').value;
                 const error = document.getElementById('login-error');
 
-                // Check credentials
-                if (email === 'jadejakrushnrajsinh99@gmail.com' && password === 'jadeja.kirtiba.123') {
-                    localStorage.setItem('adminLoggedIn', 'true');
-                    showDashboard();
-                } else {
-                    error.textContent = 'Invalid email or password';
+                try {
+                    const response = await fetch('/api/admin/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        localStorage.setItem('adminToken', data.token);
+                        showDashboard();
+                    } else {
+                        error.textContent = data.error || 'Login failed';
+                        error.style.display = 'block';
+                    }
+                } catch (err) {
+                    console.error('Login error:', err);
+                    error.textContent = 'An error occurred during login';
                     error.style.display = 'block';
                 }
             });
@@ -327,7 +348,7 @@
         }
 
         function logout() {
-            localStorage.removeItem('adminLoggedIn');
+            localStorage.removeItem('adminToken');
             showLogin();
         }
 
@@ -340,7 +361,9 @@
             error.style.display = 'none';
 
             try {
-                const response = await fetch('/api/contact');
+                const response = await fetch('/api/contact', {
+                    headers: getAuthHeaders()
+                });
                 const messages = await response.json();
 
                 if (response.ok) {
@@ -401,7 +424,8 @@
 
             try {
                 const response = await fetch(`/api/contact/${id}`, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
                 });
 
                 if (response.ok) {
@@ -452,7 +476,9 @@
             loading.style.display = 'block';
 
             try {
-                const response = await fetch('/api/projects');
+                const response = await fetch('/api/projects', {
+                    headers: getAuthHeaders()
+                });
                 const projects = await response.json();
 
                 if (response.ok) {
@@ -527,7 +553,7 @@
 
                 const response = await fetch(url, {
                     method: method,
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: getAuthHeaders(),
                     body: JSON.stringify(projectData)
                 });
 
@@ -549,7 +575,9 @@
         });
 
         function editProject(id) {
-            fetch(`/api/projects`)
+            fetch(`/api/projects`, {
+                headers: getAuthHeaders()
+            })
                 .then(response => response.json())
                 .then(projects => {
                     const project = projects.find(p => p._id === id);
@@ -573,7 +601,8 @@
 
             try {
                 const response = await fetch(`/api/projects/${id}`, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
                 });
 
                 if (response.ok) {

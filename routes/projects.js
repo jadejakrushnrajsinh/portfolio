@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const Project = require("../models/Project");
+const { authenticateToken } = require("../middleware/auth");
+const {
+  validateProject,
+  validateProjectId,
+} = require("../middleware/validation");
 
 // GET /api/projects
 router.get("/", async (req, res) => {
@@ -14,16 +19,9 @@ router.get("/", async (req, res) => {
 });
 
 // POST /api/projects
-router.post("/", async (req, res) => {
+router.post("/", authenticateToken, validateProject, async (req, res) => {
   try {
     const { title, description, image, tech, liveDemo, github } = req.body;
-
-    // Validate input
-    if (!title || !description || !image) {
-      return res
-        .status(400)
-        .json({ error: "Title, description, and image are required" });
-    }
 
     // Save project to database
     const newProject = new Project({
@@ -46,7 +44,7 @@ router.post("/", async (req, res) => {
 });
 
 // PUT /api/projects/:id
-router.put("/:id", async (req, res) => {
+router.put("/:id", authenticateToken, validateProjectId, async (req, res) => {
   try {
     const { id } = req.params;
     const { title, description, image, tech, liveDemo, github } = req.body;
@@ -72,20 +70,25 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE /api/projects/:id
-router.delete("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deletedProject = await Project.findByIdAndDelete(id);
+router.delete(
+  "/:id",
+  authenticateToken,
+  validateProjectId,
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deletedProject = await Project.findByIdAndDelete(id);
 
-    if (!deletedProject) {
-      return res.status(404).json({ error: "Project not found" });
+      if (!deletedProject) {
+        return res.status(404).json({ error: "Project not found" });
+      }
+
+      res.json({ message: "Project deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting project:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
-
-    res.json({ message: "Project deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting project:", error);
-    res.status(500).json({ error: "Internal server error" });
   }
-});
+);
 
 module.exports = router;

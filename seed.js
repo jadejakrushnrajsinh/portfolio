@@ -17,7 +17,7 @@ mongoose
         image:
           "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400", // Placeholder image
         tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
-        liveDemo: "", // No live demo as it's local
+        liveDemo: "https://jadejakrushnrajsinh.github.io/amazon-clone/",
         github: "https://github.com/jadejakrushnrajsinh/amazon-clone", // Assuming repo
       },
       {
@@ -27,8 +27,8 @@ mongoose
         image:
           "https://images.unsplash.com/photo-1486312338219-ce68e2c6f44d?w=400",
         tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
-        liveDemo: "",
-        github: "",
+        liveDemo: "", // To be added after deployment
+        github: "https://github.com/jadejakrushnrajsinh/blog-cms-fullstack",
       },
       {
         title: "Task Manager",
@@ -37,8 +37,8 @@ mongoose
         image:
           "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400",
         tech: ["HTML", "CSS", "JavaScript"],
-        liveDemo: "",
-        github: "",
+        liveDemo: "https://jadejakrushnrajsinh.github.io/task-manager/",
+        github: "https://github.com/jadejakrushnrajsinh/task-manager",
       },
       {
         title: "Weather Sphere",
@@ -47,8 +47,8 @@ mongoose
         image:
           "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400",
         tech: ["HTML", "CSS", "JavaScript"],
-        liveDemo: "",
-        github: "",
+        liveDemo: "https://jadejakrushnrajsinh.github.io/weather-sphere/",
+        github: "https://github.com/jadejakrushnrajsinh/weather-sphere",
       },
     ];
 
