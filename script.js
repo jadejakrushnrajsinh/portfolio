@@ -134,46 +134,60 @@ window.addEventListener("DOMContentLoaded", () => {
   loadProjects();
 });
 
-// Load projects statically
 function loadProjects() {
+  const currentYear = new Date().getFullYear();
+  // Update footer year dynamically
+  const footer = document.querySelector(".footer p");
+  if (footer) {
+    footer.innerHTML = `&copy; ${currentYear} Krushnraj Sinh Jadeja. All rights reserved.`;
+  }
+
   const projects = [
     {
       title: "Amazon Clone",
       description:
         "A full-stack e-commerce website clone of Amazon, featuring user authentication, product listings, shopping cart, and order management.",
+      summary:
+        "Problem: Need for scalable online shopping platform. Solution: Built MERN stack app with secure auth, real-time cart, and admin dashboard.",
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400",
       tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
-      liveDemo: "https://jadejakrushnrajsinh.github.io/amazon-clone/",
+      liveDemo: "", // Temporarily disabled until deployed
       github: "https://github.com/jadejakrushnrajsinh/amazon-clone",
     },
     {
       title: "Blog CMS Fullstack",
       description:
         "A full-stack blog content management system with user authentication, post creation, and admin panel.",
+      summary:
+        "Problem: Managing blog content efficiently. Solution: Full-stack CMS with JWT auth, CRUD operations, and responsive UI for drafts/published posts.",
       image:
         "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
-      liveDemo: "",
+      liveDemo: "", // Deployment in progress
       github: "https://github.com/jadejakrushnrajsinh/blog-cms-fullstack",
     },
     {
       title: "Task Manager",
       description:
         "A simple task management application to organize and track daily tasks.",
+      summary:
+        "Problem: Tracking personal tasks without tools. Solution: Vanilla JS app with add/edit/delete functionality, local storage persistence.",
       image:
         "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400",
       tech: ["HTML", "CSS", "JavaScript"],
-      liveDemo: "https://jadejakrushnrajsinh.github.io/task-manager/",
+      liveDemo: "", // Temporarily disabled until deployed
       github: "https://github.com/jadejakrushnrajsinh/task-manager",
     },
     {
       title: "Weather Sphere",
       description:
         "A weather application that displays current weather and forecasts using API integration.",
+      summary:
+        "Problem: Accessing weather data intuitively. Solution: JS app with OpenWeather API, 5-day forecasts, and admin search tracking via charts.",
       image:
         "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400",
       tech: ["HTML", "CSS", "JavaScript"],
-      liveDemo: "https://jadejakrushnrajsinh.github.io/weather-sphere/",
+      liveDemo: "", // Temporarily disabled until deployed
       github: "https://github.com/jadejakrushnrajsinh/weather-sphere",
     },
   ];
@@ -181,7 +195,6 @@ function loadProjects() {
   displayProjects(projects);
 }
 
-// Display projects
 function displayProjects(projects) {
   const projectsGrid = document.getElementById("projects-grid");
   projectsGrid.innerHTML = "";
@@ -196,15 +209,24 @@ function displayProjects(projects) {
     projectCard.className = "project-card";
     projectCard.innerHTML = `
       <div class="project-image">
-        <img src="${project.image}" alt="${project.title}">
+        <img src="${project.image}" alt="Screenshot of ${
+      project.title
+    } project" loading="lazy">
       </div>
       <div class="project-content">
         <h3>${project.title}</h3>
         <p>${project.description}</p>
+        ${
+          project.summary
+            ? `<p class="project-summary"><strong>Problem → Solution:</strong> ${project.summary}</p>`
+            : ""
+        }
         <div class="project-tech">
           ${
             project.tech
-              ? project.tech.map((tech) => `<span>${tech}</span>`).join("")
+              ? project.tech
+                  .map((tech) => `<span class="tech-badge">${tech}</span>`)
+                  .join("")
               : ""
           }
         </div>
@@ -212,11 +234,11 @@ function displayProjects(projects) {
           ${
             project.liveDemo
               ? `<a href="${project.liveDemo}" class="project-link" target="_blank">Live Demo</a>`
-              : ""
+              : '<span class="coming-soon">Live Demo Coming Soon</span>'
           }
           ${
             project.github
-              ? `<a href="${project.github}" class="project-link" target="_blank">Git</a>`
+              ? `<a href="${project.github}" class="project-link" target="_blank">GitHub</a>`
               : ""
           }
         </div>

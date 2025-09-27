@@ -640,6 +640,87 @@ section {
   box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
 }
 
+/* Accessibility Focus States */
+*:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #2563eb;
+}
+
+/* Project Enhancements */
+.project-summary {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.tech-badge {
+  background: #e4e7eb;
+  color: #374151;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.coming-soon {
+  color: #9ca3af;
+  font-style: italic;
+  text-decoration: none;
+  cursor: default;
+}
+
+/* Enhanced Hover Effects */
+.project-link:hover {
+  transform: scale(1.05);
+  color: #1d4ed8;
+}
+
+.project-card:hover .project-link {
+  color: #ff4500;
+}
+
+/* Responsive for Mobile (≤480px) */
+@media (max-width: 480px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .project-content {
+    padding: 20px;
+  }
+
+  .hero-content {
+    padding: 0 10px;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .contact-content {
+    gap: 20px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 12px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .nav-menu {

@@ -8,7 +8,27 @@ const limiter = rateLimit({
 });
 
 const securityMiddleware = [
-  helmet(),
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com",
+          "https://cdnjs.cloudflare.com",
+        ],
+        scriptSrc: ["'self'"],
+        imgSrc: ["'self'", "data:", "https://images.unsplash.com"],
+        fontSrc: [
+          "'self'",
+          "https://fonts.gstatic.com",
+          "https://cdnjs.cloudflare.com",
+        ],
+        connectSrc: ["'self'"],
+      },
+    },
+  }),
   limiter,
   (req, res, next) => {
     res.setHeader("X-Content-Type-Options", "nosniff");
