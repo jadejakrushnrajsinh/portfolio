@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/portfolio";
+const MONGO_URL = process.env.MONGO_URL;
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const messageSchema = new mongoose.Schema({
@@ -27,7 +26,7 @@ exports.handler = async (event, context) => {
   try {
     // Connect to MongoDB if not connected
     if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(MONGODB_URI);
+      await mongoose.connect(MONGO_URL);
     }
 
     const { httpMethod, path, headers, body, queryStringParameters } = event;

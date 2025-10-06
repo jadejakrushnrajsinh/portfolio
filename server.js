@@ -28,12 +28,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("."));
 
 // Connect to MongoDB
+const mongoUrl = process.env.MONGO_URL; // Railway's MongoDB URL
 mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/portfolio", {
+  .connect(mongoUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("Connected to MongoDB"))
+  .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Routes

@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/portfolio";
+const MONGO_URL = process.env.MONGO_URL;
 const JWT_SECRET = process.env.JWT_SECRET;
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH;
@@ -19,7 +18,7 @@ exports.handler = async (event, context) => {
   try {
     // Connect to MongoDB if not connected
     if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(MONGODB_URI);
+      await mongoose.connect(MONGO_URL);
     }
 
     const { email, password } = JSON.parse(event.body);
