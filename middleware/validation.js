@@ -6,7 +6,7 @@ const handleValidationErrors = (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
   next();
-};k
+};
 
 const validateLogin = [
   body("email").isEmail().withMessage("Please provide a valid email"),
