@@ -1,31 +1,26 @@
-# Portfolio Improvement Plan
+# Fix Portfolio Contact Form on Netlify
 
 ## Information Gathered
-- Current portfolio has hero section with name, subtitle, description, and CTA buttons.
-- About section has intro paragraph.
-- Skills section uses FontAwesome icons.
-- Projects section showcases 4 projects with links.
-- Contact section has Netlify form.
-- SEO meta tags are present.
-- Resume page exists at resume.html.
-- Hero background uses Unsplash image with gradient overlay.
-- No profile photo in hero.
-- No dedicated "Download Resume" button in about section.
+
+- Portfolio is static HTML with Netlify functions for backend.
+- Contact form uses data-netlify="true" but has custom function for MongoDB storage.
+- Form submission may not be working properly, causing updates not to show well on Netlify.
+- Need to switch to custom form handling via fetch to /.netlify/functions/contact.
 
 ## Plan
-- [ ] Add profile photo to hero section for personal touch.
-- [ ] Add "Download Resume" button in about section linking to resume.html.
-- [ ] Update skills icons to use Devicon for more professional appearance.
-- [ ] Enhance hero background with subtle animation or pattern if needed.
-- [ ] Ensure contact form is properly configured for Netlify.
-- [ ] Update meta keywords to include "India" and other relevant terms.
+
+- [x] Update index.html: Remove data-netlify="true" from contact form, remove hidden form-name input.
+- [x] Update script.js: Add event listener for form submission, handle via fetch to /.netlify/functions/contact, add success/error messages.
+- [x] Ensure form data is sent as JSON to match function expectations.
 
 ## Dependent Files to Edit
-- new-portfolio/index.html: Add profile photo, download button, update icons.
-- new-portfolio/styles.css: Adjust styles for new elements if necessary.
+
+- new-portfolio/index.html
+- new-portfolio/script.js
 
 ## Followup Steps
-- [ ] Test the updated portfolio locally.
+
 - [ ] Deploy changes to Netlify.
-- [ ] Verify contact form submission.
-- [ ] Check SEO improvements.
+- [ ] Test contact form submission.
+- [ ] Verify messages are saved in MongoDB.
+- [ ] Check if portfolio updates are now displaying correctly.
