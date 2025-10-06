@@ -213,8 +213,12 @@ document
     messageDiv.textContent = "Sending...";
     messageDiv.style.color = "blue";
 
+    // Use API_BASE_URL if set, else relative for local/Netlify
+    const apiBase = window.API_BASE_URL || "";
+    const url = `${apiBase}/api/contact`;
+
     try {
-      const response = await fetch("/.netlify/functions/contact", {
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

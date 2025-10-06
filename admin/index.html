@@ -579,7 +579,8 @@
                 const error = document.getElementById('login-error');
 
                 try {
-                    const response = await fetch('/api/admin-login', {
+                    const apiBase = window.API_BASE_URL || "";
+                    const response = await fetch(`${apiBase}/api/admin/login`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email, password })
