@@ -28,7 +28,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("."));
 
 // Connect to MongoDB
-const mongoUrl = process.env.MONGO_URL; // Railway's MongoDB URL
+const mongoUrl =
+  process.env.DATABASE_URL ||
+  process.env.MONGO_URL ||
+  "mongodb://localhost:27017/portfolio"; // Railway's MongoDB URL
 mongoose
   .connect(mongoUrl, {
     useNewUrlParser: true,
