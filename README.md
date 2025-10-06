@@ -151,8 +151,8 @@ A full-stack portfolio website with admin functionality, built with Node.js, Exp
    PORT=3001
    MONGODB_URI=mongodb://localhost:27017/portfolio
    JWT_SECRET=your_jwt_secret_here
-   ADMIN_EMAIL=admin@example.com
-   ADMIN_PASSWORD_HASH=hashed_password_here
+   ADMIN_EMAIL=admin@portfolio.com
+   ADMIN_PASSWORD_HASH=hashed_password_here (use 'jadeja.kirtiba' as password)
    ```
 
 4. **Seed the database (optional)**
