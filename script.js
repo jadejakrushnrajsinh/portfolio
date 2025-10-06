@@ -62,63 +62,6 @@ window.addEventListener("DOMContentLoaded", () => {
   if (savedEmail) emailInput.value = savedEmail;
 });
 
-// Form submission
-document
-  .querySelector(".contact-form")
-  .addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const form = e.target;
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-
-    // Disable button and show loading
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending...";
-
-    const formData = {
-      name: form.querySelector('input[type="text"]').value,
-      email: form.querySelector('input[type="email"]').value,
-      subject: form.querySelectorAll('input[type="text"]')[1].value,
-      message: form.querySelector("textarea").value,
-    };
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        // Save name and email to localStorage
-        localStorage.setItem("contactName", formData.name);
-        localStorage.setItem("contactEmail", formData.email);
-
-        alert("Thank you for your message! I'll get back to you soon.");
-        form.reset();
-        // Repopulate saved data after reset
-        const nameInput = form.querySelector('input[placeholder="Name"]');
-        const emailInput = form.querySelector('input[placeholder="Email"]');
-        nameInput.value = formData.name;
-        emailInput.value = formData.email;
-      } else {
-        alert("Error: " + result.error);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred. Please try again later.");
-    } finally {
-      // Re-enable button
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
-    }
-  });
-
 // Add loading animation to CTA button
 document.querySelectorAll(".cta-button").forEach((button) => {
   button.addEventListener("click", function () {
@@ -151,7 +94,7 @@ function loadProjects() {
         "Problem: Need for scalable online shopping platform. Solution: Built MERN stack app with secure auth, real-time cart, and admin dashboard.",
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400",
       tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
-      liveDemo: "", // Temporarily disabled until deployed
+      liveDemo: "https://jadejakrushnrajsinh.github.io/amazon-clone/",
       github: "https://github.com/jadejakrushnrajsinh/amazon-clone",
     },
     {
@@ -163,7 +106,7 @@ function loadProjects() {
       image:
         "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
-      liveDemo: "", // Deployment in progress
+      liveDemo: "",
       github: "https://github.com/jadejakrushnrajsinh/blog-cms-fullstack",
     },
     {
@@ -175,7 +118,7 @@ function loadProjects() {
       image:
         "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400",
       tech: ["HTML", "CSS", "JavaScript"],
-      liveDemo: "", // Temporarily disabled until deployed
+      liveDemo: "https://jadejakrushnrajsinh.github.io/task-manager/",
       github: "https://github.com/jadejakrushnrajsinh/task-manager",
     },
     {
@@ -187,7 +130,7 @@ function loadProjects() {
       image:
         "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400",
       tech: ["HTML", "CSS", "JavaScript"],
-      liveDemo: "", // Temporarily disabled until deployed
+      liveDemo: "https://jadejakrushnrajsinh.github.io/weather-sphere/",
       github: "https://github.com/jadejakrushnrajsinh/weather-sphere",
     },
   ];
@@ -256,3 +199,41 @@ window.addEventListener("scroll", () => {
     hero.style.backgroundPosition = `center ${scrolled * 0.5}px`;
   }
 });
+
+// Handle contact form submission
+document
+  .getElementById("contact-form")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    const messageDiv = document.getElementById("form-message");
+    messageDiv.textContent = "Sending...";
+    messageDiv.style.color = "blue";
+
+    try {
+      const response = await fetch("/.netlify/functions/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        messageDiv.textContent = result.message || "Message sent successfully!";
+        messageDiv.style.color = "green";
+        form.reset();
+      } else {
+        messageDiv.textContent = result.error || "Failed to send message.";
+        messageDiv.style.color = "red";
+      }
+    } catch (error) {
+      messageDiv.textContent = "An error occurred. Please try again.";
+      messageDiv.style.color = "red";
+    }
+  });
