@@ -7,6 +7,8 @@
     <title>Krushnraj Sinh Jadeja - Portfolio</title>
     <meta name="description"
         content="Krushnraj Sinh Jadeja - Full Stack Developer & UI/UX Designer Portfolio. Creating innovative web solutions with modern technologies." />
+    <meta name="keywords"
+        content="Krushnrajsinh Jadeja, frontend developer, portfolio, web developer, Netlify, India, full stack developer, UI/UX designer, React, Node.js, MongoDB" />
     <meta property="og:title" content="Krushnraj Sinh Jadeja - Full Stack Developer" />
     <meta property="og:description" content="Creating innovative web solutions with modern technologies" />
     <meta property="og:image" content="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200" />
@@ -19,6 +21,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@700&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 </head>
 
 <body>
@@ -47,15 +50,20 @@
     <main role="main">
         <section id="home" class="hero">
             <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="highlight">KRUSHNRAJ SINH JADEJA</span>
-                </h1>
-                <p class="hero-subtitle">Full Stack Developer & UI/UX Designer</p>
-                <p class="hero-description">
-                    Creating innovative web solutions with modern technologies
-                </p>
-                <a href="#projects" class="cta-button">View My Work</a>
-                <a href="#contact" class="cta-button" style="margin-left: 10px">Contact Me</a>
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="highlight">KRUSHNRAJ SINH JADEJA</span>
+                    </h1>
+                    <p class="hero-subtitle">Full Stack Developer & UI/UX Designer</p>
+                    <p class="hero-description">
+                        Creating innovative web solutions with modern technologies
+                    </p>
+                    <a href="#projects" class="cta-button">View My Work</a>
+                    <a href="#contact" class="cta-button" style="margin-left: 10px">Contact Me</a>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300" alt="Profile Photo" />
+                </div>
             </div>
         </section>
 
@@ -76,6 +84,7 @@
                             crafting experiences that solve problems, delight users, and
                             bring ideas to life
                         </p>
+                        <a href="resume.html" class="cta-button" target="_blank">Download Resume</a>
                     </div>
                 </div>
             </div>
@@ -86,35 +95,35 @@
                 <h2 class="section-title">SKILLS</h2>
                 <div class="skills-grid">
                     <div class="skill-item fill">
-                        <i class="fab fa-html5"></i>
+                        <i class="devicon-html5-plain colored"></i>
                         <h3>HTML</h3>
                     </div>
                     <div class="skill-item pulse">
-                        <i class="fab fa-css3-alt"></i>
+                        <i class="devicon-css3-plain colored"></i>
                         <h3>CSS</h3>
                     </div>
                     <div class="skill-item close">
-                        <i class="fab fa-js-square"></i>
+                        <i class="devicon-javascript-plain colored"></i>
                         <h3>JAVASCRIPT</h3>
                     </div>
                     <div class="skill-item raise">
-                        <i class="fab fa-react"></i>
+                        <i class="devicon-react-original colored"></i>
                         <h3>REACT</h3>
                     </div>
                     <div class="skill-item up">
-                        <i class="fab fa-node-js"></i>
+                        <i class="devicon-nodejs-plain colored"></i>
                         <h3>NODE.JS</h3>
                     </div>
                     <div class="skill-item slide">
-                        <i class="fas fa-database"></i>
+                        <i class="devicon-mongodb-plain colored"></i>
                         <h3>MONGODB</h3>
                     </div>
                     <div class="skill-item fill">
-                        <i class="fab fa-git-alt"></i>
+                        <i class="devicon-git-plain colored"></i>
                         <h3>GIT</h3>
                     </div>
                     <div class="skill-item pulse">
-                        <i class="fab fa-figma"></i>
+                        <i class="devicon-figma-plain colored"></i>
                         <h3>FIGMA</h3>
                     </div>
                 </div>
@@ -254,6 +263,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="project-card coming-soon">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Coming Soon" />
+                        </div>
+                        <div class="project-content">
+                            <h3>Coming Soon</h3>
+                            <p>Exciting new project in development. Stay tuned for the launch!</p>
+                            <div class="project-tech">
+                                <span>TBA</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link disabled">Live Demo (Soon)</a>
+                                <a href="#" class="project-link disabled">Git (Soon)</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -301,7 +327,7 @@
                             <a href="tel:+919316137425"><i class="fas fa-phone"></i> +91 9316137425</a>
                         </div>
                     </div>
-                    <form class="contact-form" netlify name="contact" method="POST" data-netlify="true">
+                    <form class="contact-form" name="contact" method="POST" data-netlify="true">
                         <input type="hidden" name="form-name" value="contact" />
                         <input type="text" name="name" placeholder="Name" required />
                         <input type="email" name="email" placeholder="Email" required />

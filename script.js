@@ -62,63 +62,6 @@ window.addEventListener("DOMContentLoaded", () => {
   if (savedEmail) emailInput.value = savedEmail;
 });
 
-// Form submission
-document
-  .querySelector(".contact-form")
-  .addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const form = e.target;
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-
-    // Disable button and show loading
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending...";
-
-    const formData = {
-      name: form.querySelector('input[type="text"]').value,
-      email: form.querySelector('input[type="email"]').value,
-      subject: form.querySelectorAll('input[type="text"]')[1].value,
-      message: form.querySelector("textarea").value,
-    };
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        // Save name and email to localStorage
-        localStorage.setItem("contactName", formData.name);
-        localStorage.setItem("contactEmail", formData.email);
-
-        alert("Thank you for your message! I'll get back to you soon.");
-        form.reset();
-        // Repopulate saved data after reset
-        const nameInput = form.querySelector('input[placeholder="Name"]');
-        const emailInput = form.querySelector('input[placeholder="Email"]');
-        nameInput.value = formData.name;
-        emailInput.value = formData.email;
-      } else {
-        alert("Error: " + result.error);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred. Please try again later.");
-    } finally {
-      // Re-enable button
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
-    }
-  });
-
 // Add loading animation to CTA button
 document.querySelectorAll(".cta-button").forEach((button) => {
   button.addEventListener("click", function () {
