@@ -2,9 +2,9 @@
   "name": "portfolio-fullstack",
   "version": "1.0.0",
   "description": "Full-stack portfolio website",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node app.js",
     "dev": "nodemon server.js"
   },
   "dependencies": {
