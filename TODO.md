@@ -5,4 +5,4 @@
 - [x] Update client/script.js to use correct API_BASE_URL for Netlify
 - [x] Update client/login.html to use correct API_BASE_URL for Netlify
 - [x] Update TODO-contact-fix.md with new instructions
-- [ ] Commit and push changes to GitHub repo https://github.com/jadejakrushnrajsinh/portfolio
+- [x] Commit and push changes to GitHub repo https://github.com/jadejakrushnrajsinh/new-portfolio
