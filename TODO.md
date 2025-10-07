@@ -1,6 +1,8 @@
-- [x] Update server.js to use environment variables for admin credentials and bcrypt for password validation
-- [ ] Test login with correct credentials
-- [ ] Test login with wrong email
-- [ ] Test login with wrong password
-- [ ] Test login with invalid email format
-- [ ] Test login with short password
+- [x] Create functions directory
+- [x] Move backend/api/contact.js to functions/contact.js
+- [x] Move backend/api/admin-login.js to functions/admin-login.js
+- [x] Move backend/api/projects.js to functions/projects.js
+- [x] Update client/script.js to use correct API_BASE_URL for Netlify
+- [x] Update client/login.html to use correct API_BASE_URL for Netlify
+- [x] Update TODO-contact-fix.md with new instructions
+- [ ] Commit and push changes to GitHub repo https://github.com/jadejakrushnrajsinh/portfolio
