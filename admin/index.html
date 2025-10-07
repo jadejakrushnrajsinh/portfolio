@@ -565,42 +565,42 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Check if already logged in
-            if (localStorage.getItem('adminToken')) {
-                window.location.href = '/admin/dashboard';
-            }
+        // Auto-detect environment for admin login
+        window.API_BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://your-backend-url.railway.app';
 
-            // Handle login form
-            document.getElementById('login-form').addEventListener('submit', async function (e) {
-                e.preventDefault();
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                const error = document.getElementById('login-error');
+        document.getElementById('login-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
 
-                try {
-                    const apiBase = window.API_BASE_URL || "";
-                    const response = await fetch(`${apiBase}/api/admin/login`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email, password })
-                    });
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('login-error');
 
-                    const data = await response.json();
+            try {
+                const apiBase = window.API_BASE_URL || "";
+                const response = await fetch(`${apiBase}/api/admin/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
 
-                    if (response.ok) {
-                        localStorage.setItem('adminToken', data.token);
-                        window.location.href = '/admin/dashboard';
-                    } else {
-                        error.textContent = data.error || 'Login failed';
-                        error.style.display = 'block';
-                    }
-                } catch (err) {
-                    console.error('Login error:', err);
-                    error.textContent = 'An error occurred during login';
-                    error.style.display = 'block';
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Store token and redirect
+                    localStorage.setItem('adminToken', data.token);
+                    window.location.href = '/admin/dashboard.html';
+                } else {
+                    // Show error
+                    errorDiv.textContent = data.error || 'Login failed';
+                    errorDiv.style.display = 'block';
                 }
-            });
+            } catch (error) {
+                console.error('Login error:', error);
+                errorDiv.textContent = 'Network error. Please try again.';
+                errorDiv.style.display = 'block';
+            }
         });
     </script>
 </body>

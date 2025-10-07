@@ -21,6 +21,9 @@ const validateContact = [
     .isLength({ min: 2 })
     .withMessage("Name must be at least 2 characters long"),
   body("email").isEmail().withMessage("Please provide a valid email"),
+  body("subject")
+    .isLength({ min: 3 })
+    .withMessage("Subject must be at least 3 characters long"),
   body("message")
     .isLength({ min: 10 })
     .withMessage("Message must be at least 10 characters long"),

@@ -21,11 +21,10 @@ mongoose
         github: "https://github.com/jadejakrushnrajsinh/amazon-clone", // Assuming repo
       },
       {
-        title: "Blog CMS Fullstack",
+        title: "CMC Full Stack",
         description:
           "A full-stack blog content management system with user authentication, post creation, and admin panel.",
-        image:
-          "https://images.unsplash.com/photo-1486312338219-ce68e2c6f44d?w=400",
+        image: "https://images.unsplash.com/photo-jLwVAUtLOAQ?w=400",
         tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
         liveDemo: "", // To be added after deployment
         github: "https://github.com/jadejakrushnrajsinh/blog-cms-fullstack",

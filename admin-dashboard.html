@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Contact Submissions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #333;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            color: #667eea;
+        }
+
+        .stat-card p {
+            margin: 0;
+            color: #666;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f8f8f8;
+            font-weight: bold;
+        }
+
+        .message-cell {
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <h1>Admin Dashboard - Contact Form Submissions</h1>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card">
+            <h3 id="total-submissions">0</h3>
+            <p>Total Submissions</p>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Subject</th>
+                <th>Message</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody id="submissions-table">
+            <!-- Submissions will be populated here -->
+        </tbody>
+    </table>
+
+    <script>
+        async function loadSubmissions() {
+            const token = localStorage.getItem('adminToken');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const tableBody = document.getElementById('submissions-table');
+            const totalEl = document.getElementById('total-submissions');
+
+            // Auto-detect environment for contact API
+            const API_BASE_URL =
+                window.location.hostname === "localhost"
+                    ? "http://localhost:5000"
+                    : "https://your-backend-url.railway.app";
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/contact`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.status === 401) {
+                    // Token invalid, redirect to login
+                    localStorage.removeItem('adminToken');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const messages = await response.json();
+
+                totalEl.textContent = messages.length;
+
+                tableBody.innerHTML = '';
+
+                if (messages.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5">No submissions yet.</td></tr>';
+                    return;
+                }
+
+                messages.forEach(message => {
+                    const row = document.createElement('tr');
+                    const date = new Date(message.createdAt).toLocaleDateString();
+                    row.innerHTML = `
+                        <td>${message.name || 'N/A'}</td>
+                        <td>${message.email || 'N/A'}</td>
+                        <td>${message.subject || 'N/A'}</td>
+                        <td class="message-cell" title="${message.message || 'N/A'}">${message.message || 'N/A'}</td>
+                        <td>${date}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error loading submissions:', error);
+                tableBody.innerHTML = '<tr><td colspan="5">Error loading submissions.</td></tr>';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('adminToken');
+            window.location.href = 'login.html';
+        }
+
+        // Load submissions on page load
+        loadSubmissions();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Krushnraj Sinh Jadeja - Portfolio</title>
+    <meta name="description"
+        content="Krushnraj Sinh Jadeja - Full Stack Developer & UI/UX Designer Portfolio. Creating innovative web solutions with modern technologies." />
+    <meta name="keywords"
+        content="Krushnrajsinh Jadeja, frontend developer, portfolio, web developer, Netlify, India, full stack developer, UI/UX designer, React, Node.js, MongoDB" />
+    <meta property="og:title" content="Krushnraj Sinh Jadeja - Full Stack Developer" />
+    <meta property="og:description" content="Creating innovative web solutions with modern technologies" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200" />
+    <meta property="og:url" content="https://yourportfolio.netlify.app" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@KrushnrajsinhJ5" />
+    <meta name="twitter:creator" content="@KrushnrajsinhJ5" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">KRUSHN<span style="color: red">RAJ</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">My Story</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#collaboration">Collaboration</a></li>
+                <li><a href="index.html#socials">Socials</a></li>
+                <li><a href="resume.html">Resume</a></li>
+                <li><a href="index.html#contact">Contacts</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main role="main">
+        <section id="project-detail" class="project-detail">
+            <div class="container">
+                <div id="project-content">
+                    <p>Loading project...</p>
+                </div>
+                <div class="back-link">
+                    <a href="index.html#projects" class="cta-button">← Back to Projects</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>
+                &copy; <span id="current-year"></span> Krushnraj Sinh Jadeja. All
+                rights reserved.
+            </p>
+            <div class="social-links">
+                <a href="https://github.com/jadejakrushnrajsinh" class="github"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/krushnrajsinh-jadeja-285775228/" class="linkedin"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="https://x.com/KrushnrajsinhJ5" class="twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set API base URL for Railway backend
+        // window.API_BASE_URL = "https://your-railway-app.railway.app";
+
+        // Load project on page load
+        window.addEventListener("DOMContentLoaded", () => {
+            loadProject();
+        });
+
+        async function loadProject() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('id');
+
+            if (!projectId) {
+                document.getElementById('project-content').innerHTML = '<p>Project not found.</p>';
+                return;
+            }
+
+            // Use API_BASE_URL if set, else relative for local/Netlify
+            const apiBase = window.API_BASE_URL || "";
+            const url = `${apiBase}/api/projects`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const projects = await response.json();
+                const project = projects.find(p => p._id === projectId);
+
+                if (project) {
+                    displayProject(project);
+                } else {
+                    document.getElementById('project-content').innerHTML = '<p>Project not found.</p>';
+                }
+            } catch (error) {
+                console.error("Error fetching project:", error);
+                document.getElementById('project-content').innerHTML = '<p>Error loading project.</p>';
+            }
+
+            // Update footer year
+            const currentYear = new Date().getFullYear();
+            const footer = document.querySelector(".footer p");
+            if (footer) {
+                footer.innerHTML = `&copy; ${currentYear} Krushnraj Sinh Jadeja. All rights reserved.`;
+            }
+        }
+
+        function displayProject(project) {
+            const projectContent = document.getElementById('project-content');
+            projectContent.innerHTML = `
+                <h1 class="section-title">${project.title}</h1>
+                <div class="project-detail-content">
+                    <div class="project-image-large">
+                        <img src="${project.image}" alt="Screenshot of ${project.title} project">
+                    </div>
+                    <div class="project-info">
+                        <p class="project-description">${project.description}</p>
+                        <div class="project-tech-large">
+                            ${project.tech ? project.tech.map(tech => `<span class="tech-badge-large">${tech}</span>`).join('') : ''}
+                        </div>
+                        <div class="project-links-large">
+                            ${project.liveDemo ? `<a href="${project.liveDemo}" class="project-link-large" target="_blank">Live Demo</a>` : ''}
+                            ${project.github ? `<a href="${project.github}" class="project-link-large" target="_blank">GitHub</a>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Hamburger menu toggle
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-menu");
+
+        hamburger.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+            hamburger.classList.toggle("active");
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll(".nav-menu a").forEach((link) => {
+            link.addEventListener("click", () => {
+                navMenu.classList.remove("active");
+                hamburger.classList.remove("active");
+            });
+        });
+    </script>
+</body>
+
+</html>

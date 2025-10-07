@@ -14,7 +14,7 @@ console.log("Environment variables loaded:", {
 });
 
 const app = express();
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 5000;
 
 // Security middleware
 const securityMiddleware = require("./middleware/security");
@@ -53,15 +53,19 @@ app.post("/api/admin/login", validateLogin, async (req, res) => {
 
     console.log("Login attempt for email:", email);
 
-    if (email !== process.env.ADMIN_EMAIL) {
+    // Use environment variables for credentials
+    const adminEmail = process.env.ADMIN_EMAIL || "admin@portfolio.com";
+    const adminPasswordHash =
+      process.env.ADMIN_PASSWORD_HASH ||
+      "$2b$10$qMIsYs7cL12zUNpDIe4xde2c00D7kMB7gZRLTfIqciJs92Smc/LA2";
+    const jwtSecret = process.env.JWT_SECRET || "default_jwt_secret_key";
+
+    if (email !== adminEmail) {
       console.log("Email does not match");
       return res.status(401).json({ error: "Email is not valid" });
     }
 
-    const isValid = await bcrypt.compare(
-      password,
-      process.env.ADMIN_PASSWORD_HASH
-    );
+    const isValid = await bcrypt.compare(password, adminPasswordHash);
 
     console.log("Password validation result:", isValid);
 
@@ -70,7 +74,7 @@ app.post("/api/admin/login", validateLogin, async (req, res) => {
       return res.status(401).json({ error: "Password is wrong" });
     }
 
-    const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ email }, jwtSecret, {
       expiresIn: "1h",
     });
 
@@ -82,10 +86,7 @@ app.post("/api/admin/login", validateLogin, async (req, res) => {
   }
 });
 
-// Admin route
-app.get("/admin", (req, res) => {
-  res.sendFile(__dirname + "/admin.html");
-});
+// Admin route removed, served by separate server
 
 // Error handling middleware
 const errorHandler = require("./middleware/errorHandler");

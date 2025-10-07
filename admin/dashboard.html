@@ -677,6 +677,8 @@
     </div>
 
     <script>
+        // Auto-detect environment for admin dashboard
+        window.API_BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://your-backend-url.railway.app';
         function getAuthHeaders() {
             const token = localStorage.getItem('adminToken');
             return {
