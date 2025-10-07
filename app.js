@@ -1,11 +1,11 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const path = require("path");
-require("dotenv").config({ path: path.join(__dirname, ".env") });
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import bodyParser from "body-parser";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import path from "path";
+import "dotenv/config";
 
 console.log("Environment variables loaded:", {
   ADMIN_EMAIL: process.env.ADMIN_EMAIL,
@@ -17,7 +17,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Security middleware
-const securityMiddleware = require("./middleware/security");
+import securityMiddleware from "./middleware/security.js";
 app.use(securityMiddleware);
 
 // Middleware
@@ -39,11 +39,13 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Routes
-app.use("/api/contact", require("./routes/contact"));
-app.use("/api/projects", require("./routes/projects"));
+import contactRoute from "./routes/contact.js";
+import projectsRoute from "./routes/projects.js";
+app.use("/api/contact", contactRoute);
+app.use("/api/projects", projectsRoute);
 
 // Admin login with validation
-const { validateLogin } = require("./middleware/validation");
+import { validateLogin } from "./middleware/validation.js";
 app.post("/api/admin/login", validateLogin, async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -86,7 +88,7 @@ app.post("/api/admin/login", validateLogin, async (req, res) => {
 // Admin route removed, served by separate server
 
 // Error handling middleware
-const errorHandler = require("./middleware/errorHandler");
+import errorHandler from "./middleware/errorHandler.js";
 app.use(errorHandler);
 
 // Start server

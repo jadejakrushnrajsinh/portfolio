@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Project = require("./models/Project");
+import mongoose from "mongoose";
+import Project from "./models/Project.js";
 
 mongoose
   .connect("mongodb://localhost:27017/portfolio", {

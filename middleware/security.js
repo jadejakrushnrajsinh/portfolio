@@ -1,5 +1,5 @@
-const helmet = require("helmet");
-const rateLimit = require("express-rate-limit");
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -38,4 +38,4 @@ const securityMiddleware = [
   },
 ];
 
-module.exports = securityMiddleware;
+export default securityMiddleware;

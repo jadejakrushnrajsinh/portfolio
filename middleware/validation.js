@@ -1,4 +1,4 @@
-const { body, param, validationResult } = require("express-validator");
+import { body, param, validationResult } from "express-validator";
 
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
@@ -48,9 +48,4 @@ const validateProjectId = [
   handleValidationErrors,
 ];
 
-module.exports = {
-  validateLogin,
-  validateContact,
-  validateProject,
-  validateProjectId,
-};
+export { validateLogin, validateContact, validateProject, validateProjectId };
