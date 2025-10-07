@@ -6,8 +6,8 @@ Contact form fails to send messages, showing "Failed to send message."
 
 ## Changes Made
 
-- Moved backend API functions to `functions/` directory for Netlify deployment.
-- Updated frontend scripts to use correct API_BASE_URL for Netlify functions.
+- Modified `functions/contact.js` to handle database connection errors gracefully.
+- Updated `script.js` to use configurable API_BASE_URL for backend URL.
 - Kept full-stack approach with backend and database.
 
 ## Next Steps
@@ -18,37 +18,36 @@ Contact form fails to send messages, showing "Failed to send message."
    - Set DATABASE_URL = mongodb://mongo:JRgUgPgOgpfABlDJMmvxHiCtFrtqSYYX@mongodb.railway.internal:27017
    - Redeploy the Railway app.
 
-2. **Set environment variables in Netlify:**
+2. **Get Railway App URL:**
 
-   - In Netlify dashboard, go to Site settings > Environment variables.
-   - Add:
-     - MONGO_URL = mongodb://mongo:JRgUgPgOgpfABlDJMmvxHiCtFrtqSYYX@mongodb.railway.internal:27017
-     - JWT_SECRET = your_jwt_secret_key
-     - ADMIN_EMAIL = your_admin_email
-     - ADMIN_PASSWORD_HASH = bcrypt_hash_of_your_password
+   - Find your Railway app URL (e.g., `https://your-app-name.railway.app`).
 
-3. **Deploy to Netlify:**
+3. **For Production (Frontend on Netlify):**
 
-   - Push changes to GitHub repo: https://github.com/jadejakrushnrajsinh/portfolio
-   - Netlify will auto-deploy from the repo.
+   - In `index.html`, add a script tag before the closing `</body>`:
+     ```html
+     <script>
+       window.API_BASE_URL = "https://your-app-name.railway.app";
+     </script>
+     ```
+   - Redeploy the frontend to Netlify.
    - Test the contact form on the live site.
 
 4. **For Local Testing:**
 
-   - Install Netlify CLI: `npm install -g netlify-cli`
-   - Run `netlify dev` in the project directory.
-   - Open browser to `http://localhost:8888` and test the contact form.
+   - Run the server locally: Open terminal, navigate to `new-portfolio` directory, run `npm start`.
+   - Open browser to `http://localhost:3002` and test the contact form.
 
 5. **If still failing:**
    - Check browser console for errors (network tab).
-   - Ensure the Netlify functions are deployed and accessible.
-   - Check Netlify function logs for errors.
+   - Ensure the backend is running and accessible.
+   - If using Railway, check Railway logs for errors.
 
 ## Benefits
 
 - Full-stack application with database storage.
 - Messages are saved and can be viewed in admin panel.
-- Scalable and professional setup using Netlify functions.
+- Scalable and professional setup.
 
 ## Testing
 

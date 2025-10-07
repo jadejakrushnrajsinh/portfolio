@@ -105,7 +105,7 @@
             const API_BASE_URL =
                 window.location.hostname === "localhost"
                     ? "http://localhost:5000"
-                    : window.location.origin;
+                    : "https://nodejs-production-0738.up.railway.app";
 
             try {
                 const response = await fetch(`${API_BASE_URL}/api/admin/login`, {
