@@ -14,7 +14,7 @@ console.log("Environment variables loaded:", {
 });
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 // Security middleware
 const securityMiddleware = require("./middleware/security");
@@ -29,10 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("."));
 
 // Connect to MongoDB
-const mongoUrl =
-  process.env.DATABASE_URL ||
-  process.env.MONGO_URL ||
-  "mongodb://localhost:27017/portfolio"; // Railway's MongoDB URL
+const mongoUrl = process.env.MONGO_URI || "mongodb://localhost:27017/portfolio";
 mongoose
   .connect(mongoUrl, {
     useNewUrlParser: true,
@@ -93,6 +90,6 @@ const errorHandler = require("./middleware/errorHandler");
 app.use(errorHandler);
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
