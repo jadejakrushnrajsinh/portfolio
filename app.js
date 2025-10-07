@@ -5,7 +5,9 @@ import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import path from "path";
-import "dotenv/config";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 console.log("Environment variables loaded:", {
   ADMIN_EMAIL: process.env.ADMIN_EMAIL,
@@ -21,12 +23,22 @@ import securityMiddleware from "./middleware/security.js";
 app.use(securityMiddleware);
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // For development; change to your frontend URL in production
+    credentials: true,
+  })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files
 app.use(express.static("."));
+
+// Routes example
+app.get("/", (req, res) => {
+  res.send("Backend is running");
+});
 
 // Connect to MongoDB
 const mongoUrl = process.env.MONGO_URI || "mongodb://localhost:27017/portfolio";
