@@ -6,3 +6,16 @@
 - [x] Update client/login.html to use correct API_BASE_URL for Netlify
 - [x] Update TODO-contact-fix.md with new instructions
 - [x] Commit and push changes to GitHub repo https://github.com/jadejakrushnrajsinh/new-portfolio
+- [x] Create client/admin/ directory
+- [x] Move admin/dashboard.html to client/admin/dashboard.html
+- [x] Move admin/index.html to client/admin/index.html
+- [x] Move index.html to client/index.html
+- [x] Move login.html to client/login.html
+- [x] Move admin-dashboard.html to client/admin-dashboard.html
+- [x] Move portfolio-single.html to client/portfolio-single.html
+- [x] Move resume.html to client/resume.html
+- [x] Move script.js to client/script.js
+- [x] Move styles.css to client/styles.css
+- [x] Move profile.jpg to client/profile.jpg
+- [x] Remove empty admin/ folder
+- [x] Check and update any broken paths in moved files
