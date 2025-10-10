@@ -32,8 +32,8 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static files
-app.use(express.static("."));
+// Serve static files from client directory
+app.use(express.static(path.join(process.cwd(), "..", "client")));
 
 // Routes example
 app.get("/", (req, res) => {
