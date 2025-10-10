@@ -85,11 +85,7 @@ async function loadProjects() {
     footer.innerHTML = `&copy; ${currentYear} Krushnraj Sinh Jadeja. All rights reserved.`;
   }
 
-  // Auto-detect environment for projects API
-  const API_BASE_URL =
-    window.location.hostname === "localhost"
-      ? "http://localhost:5000"
-      : "https://nodejs-production-0738.up.railway.app";
+  const API_BASE_URL = "";
   const url = `${API_BASE_URL}/api/projects`;
 
   try {
@@ -228,11 +224,7 @@ document
 
     const messageDiv = document.getElementById("form-message");
 
-    // Auto-detect environment for contact API
-    const API_BASE_URL =
-      window.location.hostname === "localhost"
-        ? "http://localhost:5000"
-        : "https://nodejs-production-0738.up.railway.app";
+    const API_BASE_URL = "";
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/contact`, {

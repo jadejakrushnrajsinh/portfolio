@@ -46,7 +46,7 @@ const mongoUrl =
   process.env.MONGO_URL ||
   process.env.MONGODB_URI ||
   process.env.MONGO_URI ||
-  "mongodb://mongodb:27017/portfolio"; // Internal Railway MongoDB hostname
+  "mongodb://mongodb:27017/portfolio"; // Internal Railway MongoDB hostname for linked service
 
 console.log(
   `Environment variables check: MONGO_URL=${!!process.env
