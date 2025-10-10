@@ -1,5 +1,12 @@
 {
-  "rewrites": [
-    { "source": "/api/:path*", "destination": "https://nodejs-production-da51.up.railway.app/api/:path*" }
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://nodejs-production-da51.up.railway.app/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/$1"
+    }
   ]
 }
