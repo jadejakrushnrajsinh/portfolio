@@ -87,9 +87,7 @@ async function loadProjects() {
 
   // Auto-detect environment for projects API
   const API_BASE_URL =
-    window.location.hostname === "localhost"
-      ? "http://localhost:5000"
-      : "https://nodejs-production-da51.up.railway.app";
+    window.location.hostname === "localhost" ? "http://localhost:5000" : "";
   const url = `${API_BASE_URL}/api/projects`;
 
   try {
@@ -230,9 +228,7 @@ document
 
     // Auto-detect environment for contact API
     const API_BASE_URL =
-      window.location.hostname === "localhost"
-        ? "http://localhost:5000"
-        : "https://nodejs-production-da51.up.railway.app";
+      window.location.hostname === "localhost" ? "http://localhost:5000" : "";
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/contact`, {

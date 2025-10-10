@@ -8,6 +8,10 @@
   ],
   "routes": [
     {
+      "src": "/api/(.*)",
+      "dest": "https://nodejs-production-da51.up.railway.app/api/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/client/$1"
     }
