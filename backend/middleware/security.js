@@ -18,7 +18,7 @@ const securityMiddleware = [
           "https://fonts.googleapis.com",
           "https://cdnjs.cloudflare.com",
         ],
-        scriptSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-eval'"],
         imgSrc: ["'self'", "data:", "https://images.unsplash.com"],
         fontSrc: [
           "'self'",
