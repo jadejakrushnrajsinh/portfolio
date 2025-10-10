@@ -32,23 +32,44 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static files
-app.use(express.static("."));
+// Serve static files from client directory
+app.use(express.static(path.join(process.cwd(), "..", "client")));
 
 // Routes example
 app.get("/", (req, res) => {
   res.send("Backend is running");
 });
 
-// Connect to MongoDB
-const mongoUrl = process.env.MONGO_URI || "mongodb://localhost:27017/portfolio";
+// Connect to MongoDB - Use Railway's internal MongoDB service
+const mongoUrl =
+  process.env.DATABASE_URL || // Railway sets this for linked MongoDB
+  process.env.MONGO_URL ||
+  process.env.MONGODB_URI ||
+  process.env.MONGO_URI ||
+  "mongodb://mongodb:27017/portfolio"; // Internal Railway MongoDB hostname
+
+console.log(
+  `Environment variables check: MONGO_URL=${!!process.env
+    .MONGO_URL}, DATABASE_URL=${!!process.env
+    .DATABASE_URL}, MONGODB_URI=${!!process.env
+    .MONGODB_URI}, MONGO_URI=${!!process.env.MONGO_URI}`
+);
+
+const maskedUrl = mongoUrl.replace(/:([^:@]{4})[^:@]*@/, ":$1****@");
+console.log(`Connecting to MongoDB at: ${maskedUrl}`);
+
 mongoose
   .connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 30000, // Increased timeout for production
   })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+  .then(() => console.log("MongoDB connected successfully"))
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+    if (process.env.NODE_ENV === "production") {
+      console.error("Exiting due to MongoDB connection failure in production");
+      process.exit(1);
+    }
+  });
 
 // Routes
 import contactRoute from "./routes/contact.js";
@@ -106,4 +127,8 @@ app.use(errorHandler);
 // Start server
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+  console.log(`MongoDB URI: ${process.env.MONGO_URI ? "Set" : "Not set"}`);
+  console.log(`Server listening on http://0.0.0.0:${PORT}`);
+  console.log(`Health check: http://localhost:${PORT}/`);
 });
