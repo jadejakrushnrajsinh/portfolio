@@ -89,7 +89,7 @@ async function loadProjects() {
   const API_BASE_URL =
     window.location.hostname === "localhost"
       ? "http://localhost:5000"
-      : "https://nodejs-production-0738.up.railway.app";
+      : "https://nodejs-production-da51.up.railway.app";
   const url = `${API_BASE_URL}/api/projects`;
 
   try {
@@ -232,7 +232,7 @@ document
     const API_BASE_URL =
       window.location.hostname === "localhost"
         ? "http://localhost:5000"
-        : "https://nodejs-production-0738.up.railway.app";
+        : "https://nodejs-production-da51.up.railway.app";
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/contact`, {
