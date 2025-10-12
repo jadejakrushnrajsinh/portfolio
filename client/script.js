@@ -86,7 +86,7 @@ async function loadProjects() {
   }
 
   const API_BASE_URL =
-    import.meta.env.VITE_API_URL ||
+    import.meta.env?.VITE_API_URL ||
     "https://nodejs-production-da51.up.railway.app";
   const url = `${API_BASE_URL}/api/projects`;
 
@@ -227,7 +227,7 @@ document
     const messageDiv = document.getElementById("form-message");
 
     const API_BASE_URL =
-      import.meta.env.VITE_API_URL ||
+      import.meta.env?.VITE_API_URL ||
       "https://nodejs-production-da51.up.railway.app";
 
     try {
