@@ -18,6 +18,9 @@ console.log("Environment variables loaded:", {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust proxy for Railway deployment
+app.set('trust proxy', 1);
+
 // Security middleware
 import securityMiddleware from "./middleware/security.js";
 app.use(securityMiddleware);
