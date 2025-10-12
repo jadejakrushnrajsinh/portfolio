@@ -25,7 +25,7 @@ const securityMiddleware = [
           "https://fonts.gstatic.com",
           "https://cdnjs.cloudflare.com",
         ],
-        connectSrc: ["'self'"],
+        connectSrc: ["'self'", "https://nodejs-production-da51.up.railway.app"],
       },
     },
   }),
