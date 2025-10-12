@@ -77,6 +77,11 @@ import projectsRoute from "./routes/projects.js";
 app.use("/api/contact", contactRoute);
 app.use("/api/projects", projectsRoute);
 
+// Test route to verify API is working
+app.get("/api/test", (req, res) => {
+  res.json({ message: "API is working!", timestamp: new Date().toISOString() });
+});
+
 // Admin login with validation
 import { validateLogin } from "./middleware/validation.js";
 app.post("/api/admin/login", validateLogin, async (req, res) => {
