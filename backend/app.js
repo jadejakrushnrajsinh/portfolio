@@ -25,7 +25,7 @@ app.use(securityMiddleware);
 // Middleware
 app.use(
   cors({
-    origin: "*", // For development; change to your frontend URL in production
+    origin: "https://www.krushnrajsinhjadeja.com", // Your frontend URL
     credentials: true,
   })
 );

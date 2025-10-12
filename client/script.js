@@ -85,7 +85,7 @@ async function loadProjects() {
     footer.innerHTML = `&copy; ${currentYear} Krushnraj Sinh Jadeja. All rights reserved.`;
   }
 
-  const API_BASE_URL = "";
+  const API_BASE_URL = "https://nodejs-production-da51.up.railway.app";
   const url = `${API_BASE_URL}/api/projects`;
 
   try {
@@ -224,7 +224,7 @@ document
 
     const messageDiv = document.getElementById("form-message");
 
-    const API_BASE_URL = "";
+    const API_BASE_URL = "https://nodejs-production-da51.up.railway.app";
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/contact`, {
