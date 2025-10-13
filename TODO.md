@@ -5,6 +5,8 @@
 - [x] Analyze the error: Identified CORS origin mismatch as likely cause.
 - [x] Add "https://krushnrajsinhjadeja.com" to CORS origins in backend/app.js for both production and development.
 - [x] Seed sample projects data to MongoDB.
+- [x] Fix rate limiter to skip Railway health checks.
+- [x] Require JWT_SECRET environment variable for security.
 - [x] Commit and push changes to GitHub.
 
 ## Next Steps
