@@ -8,6 +8,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon server.js",
+    "seed": "node seed.js",
     "build": "echo 'static site'"
   },
   "dependencies": {
