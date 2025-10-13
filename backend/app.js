@@ -122,7 +122,12 @@ app.post("/api/admin/login", validateLogin, async (req, res) => {
     const adminPasswordHash =
       process.env.ADMIN_PASSWORD_HASH ||
       "$2b$10$qMIsYs7cL12zUNpDIe4xde2c00D7kMB7gZRLTfIqciJs92Smc/LA2";
-    const jwtSecret = process.env.JWT_SECRET || "default_jwt_secret_key";
+    const jwtSecret = process.env.JWT_SECRET;
+
+    if (!jwtSecret) {
+      console.error("JWT_SECRET environment variable is not set. Please set a secure JWT_SECRET in your Railway environment variables for security.");
+      process.exit(1);
+    }
 
     if (email !== adminEmail) {
       console.log("Email does not match");
