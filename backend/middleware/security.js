@@ -12,7 +12,8 @@ const limiter = rateLimit({
       req.headers["x-forwarded-for"] === undefined ||
       req.ip === "127.0.0.1" ||
       req.path === "/" ||
-      req.path === "/api/test"
+      req.path === "/api/test" ||
+      req.path.startsWith("/api/")
     );
   },
 });
