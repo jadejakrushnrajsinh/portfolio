@@ -56,10 +56,10 @@ window.addEventListener("DOMContentLoaded", () => {
   const emailInput = document.querySelector('input[placeholder="Email"]');
 
   const savedName = localStorage.getItem("contactName");
-  const savedEmail = localStorage.getItem("contactEmail");
+  const email = localStorage.getItem("contactEmail");
 
   if (savedName) nameInput.value = savedName;
-  if (savedEmail) emailInput.value = savedEmail;
+  if (email) emailInput.value = email;
 });
 
 // Add loading animation to CTA button
@@ -85,8 +85,8 @@ async function loadProjects() {
     footer.innerHTML = `&copy; ${currentYear} Krushnraj Sinh Jadeja. All rights reserved.`;
   }
 
-  const API_BASE_URL =
-    window.location.hostname === "localhost" ? "http://localhost:3000" : "";
+  // 🚀 FIXED: Added correct backend URL
+  const API_BASE_URL = "https://nodejs-production-da51.up.railway.app";
   const url = `${API_BASE_URL}/api/projects`;
 
   try {
@@ -233,8 +233,8 @@ document
 
     const messageDiv = document.getElementById("form-message");
 
-    const API_BASE_URL =
-      window.location.hostname === "localhost" ? "http://localhost:3000" : "";
+    // 🚀 FIXED: Added correct backend URL for contact form
+    const API_BASE_URL = "https://nodejs-production-da51.up.railway.app";
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/contact`, {

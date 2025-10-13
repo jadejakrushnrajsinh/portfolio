@@ -14,12 +14,16 @@
 - [x] Push changes to GitHub.
 - [x] Test backend API endpoints: /api/projects returns [], /api/test returns 404, / returns "Backend is running".
 - [x] Skip rate limiting for all /api/ routes to prevent blocking fetch requests.
+- [x] Simplified CORS to allow all origins ("\*") to eliminate origin mismatches.
+- [x] Updated CSP connectSrc to include frontend domains.
+- [x] Deployed backend changes to Railway.
+- [x] Tested API endpoints: /api/contact (POST) works, /api/projects (GET) returns empty array (expected if no projects seeded).
+- [x] Seeded sample projects using seed.js.
 - [x] Push latest changes to GitHub.
 
 ## Next Steps
 
 - [ ] Update DNS A record for krushnrajsinhjadeja.com to point to the IP Vercel provides (216.198.79.1 as shown in Vercel dashboard, currently set to 216.198.79.160 in Porkbun).
-- [ ] Deploy the backend changes to Railway (nodejs-production-da51.up.railway.app) - set JWT_SECRET env var.
 - [ ] Run seed script on Railway to populate projects in production DB.
 - [ ] Test the contact form and project loading on the live site (https://krushnrajsinhjadeja.com).
 - [ ] If error persists, check Network tab in DevTools for request details and verify server logs.
