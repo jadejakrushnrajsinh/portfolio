@@ -32,11 +32,13 @@ app.use(
       process.env.NODE_ENV === "production"
         ? [
             "https://www.krushnrajsinhjadeja.com",
+            "https://krushnrajsinhjadeja.com",
             "https://nodejs-production-da51.up.railway.app",
           ]
         : [
             "http://localhost:3000",
             "https://www.krushnrajsinhjadeja.com",
+            "https://krushnrajsinhjadeja.com",
             "https://nodejs-production-da51.up.railway.app",
           ], // Allow localhost for development
     credentials: true,
