@@ -9,7 +9,10 @@ const limiter = rateLimit({
   skip: (req) => {
     // Skip rate limiting for Railway's health checks or internal requests
     return (
-      req.headers["x-forwarded-for"] === undefined || req.ip === "127.0.0.1"
+      req.headers["x-forwarded-for"] === undefined ||
+      req.ip === "127.0.0.1" ||
+      req.path === "/" ||
+      req.path === "/api/test"
     );
   },
 });
