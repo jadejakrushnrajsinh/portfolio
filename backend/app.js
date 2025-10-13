@@ -87,8 +87,8 @@ mongoose
   });
 
 // Routes
-import contactRoute from "./routes/contact.js";
-import projectsRoute from "./routes/projects.js";
+const contactRoute = require("./routes/contact.js");
+const projectsRoute = require("./routes/projects.js");
 app.use("/api/contact", contactRoute);
 app.use("/api/projects", projectsRoute);
 
