@@ -1,11 +1,11 @@
-import express from "express";
+const express = require("express");
 const router = express.Router();
-import Project from "../models/Project.js";
-import { authenticateToken } from "../middleware/auth.js";
-import {
+const Project = require("../models/Project.js");
+const { authenticateToken } = require("../middleware/auth.js");
+const {
   validateProject,
   validateProjectId,
-} from "../middleware/validation.js";
+} = require("../middleware/validation.js");
 
 // GET /api/projects
 router.get("/", async (req, res) => {
@@ -91,4 +91,4 @@ router.delete(
   }
 );
 
-export default router;
+module.exports = router;

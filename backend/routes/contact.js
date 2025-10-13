@@ -1,8 +1,8 @@
-import express from "express";
+const express = require("express");
 const router = express.Router();
-import Message from "../models/Message.js";
-import { authenticateToken } from "../middleware/auth.js";
-import { validateContact } from "../middleware/validation.js";
+const Message = require("../models/Message.js");
+const { authenticateToken } = require("../middleware/auth.js");
+const { validateContact } = require("../middleware/validation.js");
 
 // POST /api/contact
 router.post("/", validateContact, async (req, res) => {
@@ -48,4 +48,4 @@ router.delete("/:id", authenticateToken, async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
