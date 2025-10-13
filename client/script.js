@@ -86,8 +86,7 @@ async function loadProjects() {
   }
 
   const API_BASE_URL =
-    import.meta.env?.VITE_API_URL ||
-    "https://nodejs-production-da51.up.railway.app";
+    window.location.hostname === "localhost" ? "http://localhost:3000" : "";
   const url = `${API_BASE_URL}/api/projects`;
 
   try {
@@ -168,7 +167,11 @@ function displayProjects(projects) {
     projectCard.className = "project-card";
     projectCard.innerHTML = `
       <div class="project-image">
-        <img src="${project.image}" alt="Screenshot of ${
+        <img src="${project.image}?w=400" srcset="${
+      project.image
+    }?w=400 400w, ${
+      project.image
+    }?w=800 800w" sizes="(max-width: 600px) 400px, 800px" alt="Screenshot of ${
       project.title
     } project" loading="lazy">
       </div>
@@ -193,7 +196,11 @@ function displayProjects(projects) {
           <a href="portfolio-single.html?id=${
             project._id
           }" class="project-link">View Details</a>
-    <span class="project-link coming-soon">Live Demo Coming Soon</span>
+          ${
+            project.liveDemo
+              ? `<a href="${project.liveDemo}" class="project-link" target="_blank">Live Demo</a>`
+              : '<span class="project-link coming-soon">Live Demo Coming Soon</span>'
+          }
           ${
             project.github
               ? `<a href="${project.github}" class="project-link" target="_blank">GitHub</a>`
@@ -227,8 +234,7 @@ document
     const messageDiv = document.getElementById("form-message");
 
     const API_BASE_URL =
-      import.meta.env?.VITE_API_URL ||
-      "https://nodejs-production-da51.up.railway.app";
+      window.location.hostname === "localhost" ? "http://localhost:3000" : "";
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/contact`, {

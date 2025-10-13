@@ -19,7 +19,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Trust proxy for Railway deployment
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 
 // Security middleware
 import securityMiddleware from "./middleware/security.js";
@@ -28,7 +28,10 @@ app.use(securityMiddleware);
 // Middleware
 app.use(
   cors({
-    origin: "https://www.krushnrajsinhjadeja.com", // Your frontend URL
+    origin: [
+      "https://www.krushnrajsinhjadeja.com",
+      "https://nodejs-production-da51.up.railway.app",
+    ], // Allow frontend and Railway backend
     credentials: true,
   })
 );
@@ -44,12 +47,7 @@ app.get("/", (req, res) => {
 });
 
 // Connect to MongoDB - Use Railway's internal MongoDB service
-const mongoUrl =
-  process.env.DATABASE_URL || // Railway sets this for linked MongoDB
-  process.env.MONGO_URL ||
-  process.env.MONGODB_URI ||
-  process.env.MONGO_URI ||
-  "mongodb://mongodb:27017/portfolio"; // Internal Railway MongoDB hostname for linked service
+const mongoUrl = "mongodb://localhost:27017/portfolio"; // Local MongoDB for development
 
 console.log(
   `Environment variables check: MONGO_URL=${!!process.env
@@ -68,10 +66,22 @@ mongoose
   .then(() => console.log("MongoDB connected successfully"))
   .catch((err) => {
     console.error("MongoDB connection error:", err);
-    if (process.env.NODE_ENV === "production") {
-      console.error("Exiting due to MongoDB connection failure in production");
-      process.exit(1);
-    }
+    console.log("Falling back to local MongoDB for development");
+    // Fallback to local MongoDB
+    mongoose
+      .connect("mongodb://localhost:27017/portfolio", {
+        serverSelectionTimeoutMS: 5000,
+      })
+      .then(() => console.log("Connected to local MongoDB"))
+      .catch((localErr) => {
+        console.error("Local MongoDB connection failed:", localErr);
+        if (process.env.NODE_ENV === "production") {
+          console.error(
+            "Exiting due to MongoDB connection failure in production"
+          );
+          process.exit(1);
+        }
+      });
   });
 
 // Routes
