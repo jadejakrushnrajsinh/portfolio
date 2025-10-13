@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Full-stack portfolio website",
   "homepage": ".",
-  "type": "module",
+  "type": "commonjs",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
