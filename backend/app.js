@@ -54,7 +54,12 @@ app.get("/", (req, res) => {
 });
 
 // Connect to MongoDB - Use Railway's internal MongoDB service
-const mongoUrl = "mongodb://localhost:27017/portfolio"; // Local MongoDB for development
+const mongoUrl =
+  process.env.MONGO_URL ||
+  process.env.DATABASE_URL ||
+  process.env.MONGODB_URI ||
+  process.env.MONGO_URI ||
+  "mongodb://localhost:27017/portfolio"; // Use env var for production
 
 console.log(
   `Environment variables check: MONGO_URL=${!!process.env
