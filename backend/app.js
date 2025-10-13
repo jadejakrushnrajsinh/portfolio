@@ -28,10 +28,17 @@ app.use(securityMiddleware);
 // Middleware
 app.use(
   cors({
-    origin: [
-      "https://www.krushnrajsinhjadeja.com",
-      "https://nodejs-production-da51.up.railway.app",
-    ], // Allow frontend and Railway backend
+    origin:
+      process.env.NODE_ENV === "production"
+        ? [
+            "https://www.krushnrajsinhjadeja.com",
+            "https://nodejs-production-da51.up.railway.app",
+          ]
+        : [
+            "http://localhost:3000",
+            "https://www.krushnrajsinhjadeja.com",
+            "https://nodejs-production-da51.up.railway.app",
+          ], // Allow localhost for development
     credentials: true,
   })
 );
