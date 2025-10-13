@@ -6,6 +6,12 @@ const limiter = rateLimit({
   max: 100, // limit each IP to 100 requests per windowMs
   message: "Too many requests from this IP, please try again later.",
   trustProxy: 1, // Trust proxy to correctly identify client IP
+  skip: (req) => {
+    // Skip rate limiting for Railway's health checks or internal requests
+    return (
+      req.headers["x-forwarded-for"] === undefined || req.ip === "127.0.0.1"
+    );
+  },
 });
 
 const securityMiddleware = [
