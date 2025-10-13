@@ -13,6 +13,8 @@
 - [x] Fix frontend URLs in admin-dashboard.html and login.html to use nodejs-production-da51.up.railway.app.
 - [x] Push changes to GitHub.
 - [x] Test backend API endpoints: /api/projects returns [], /api/test returns 404, / returns "Backend is running".
+- [x] Skip rate limiting for all /api/ routes to prevent blocking fetch requests.
+- [x] Push latest changes to GitHub.
 
 ## Next Steps
 

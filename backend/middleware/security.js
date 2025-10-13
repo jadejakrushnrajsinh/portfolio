@@ -36,7 +36,12 @@ const securityMiddleware = [
           "https://fonts.gstatic.com",
           "https://cdnjs.cloudflare.com",
         ],
-        connectSrc: ["'self'", "https://nodejs-production-da51.up.railway.app"],
+        connectSrc: [
+          "'self'",
+          "https://nodejs-production-da51.up.railway.app",
+          "https://krushnrajsinhjadeja.com",
+          "https://www.krushnrajsinhjadeja.com",
+        ],
       },
     },
   }),
