@@ -33,13 +33,13 @@ app.use(
         ? [
             "https://www.krushnrajsinhjadeja.com",
             "https://krushnrajsinhjadeja.com",
-            "https://nodejs-production-da51.up.railway.app",
+            "https://nodejs-production-0738.up.railway.app",
           ]
         : [
             "http://localhost:3000",
             "https://www.krushnrajsinhjadeja.com",
             "https://krushnrajsinhjadeja.com",
-            "https://nodejs-production-da51.up.railway.app",
+            "https://nodejs-production-0738.up.railway.app",
           ], // Allow localhost for development
     credentials: true,
   })
@@ -125,7 +125,9 @@ app.post("/api/admin/login", validateLogin, async (req, res) => {
     const jwtSecret = process.env.JWT_SECRET;
 
     if (!jwtSecret) {
-      console.error("JWT_SECRET environment variable is not set. Please set a secure JWT_SECRET in your Railway environment variables for security.");
+      console.error(
+        "JWT_SECRET environment variable is not set. Please set a secure JWT_SECRET in your Railway environment variables for security."
+      );
       process.exit(1);
     }
 

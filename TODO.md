@@ -4,16 +4,18 @@
 
 - [x] Analyze the error: Identified CORS origin mismatch as likely cause.
 - [x] Add "https://krushnrajsinhjadeja.com" to CORS origins in backend/app.js for both production and development.
+- [x] Require JWT_SECRET env var in backend/app.js.
+- [x] Fix rate limiter to skip Railway health checks in backend/middleware/security.js.
 - [x] Update seed.js to use production MongoDB URL.
-- [x] Seed sample projects data to MongoDB.
-- [x] Fix rate limiter to skip Railway health checks.
-- [x] Require JWT_SECRET environment variable for security.
-- [x] Commit and push changes to GitHub.
+- [x] Add seed script to backend/package.json.
+- [x] Run seed script locally to populate projects.
+- [x] Push changes to GitHub.
 
 ## Next Steps
 
-- [ ] Fix DNS for root domain: Update A record for krushnrajsinhjadeja.com to Vercel's A records (76.76.21.21 and 76.76.21.22) so the site loads on the root domain.
-- [ ] Deploy the backend changes to Railway (nodejs-production-da51.up.railway.app) - Railway should auto-deploy from GitHub.
-- [ ] Test the contact form and project loading on the live site (https://krushnrajsinhjadeja.com) after DNS fix.
+- [ ] Deploy the backend changes to Railway (nodejs-production-da51.up.railway.app) - set JWT_SECRET env var.
+- [ ] Run seed script on Railway to populate projects in production DB.
+- [ ] Test the contact form and project loading on the live site (https://krushnrajsinhjadeja.com).
 - [ ] If error persists, check Network tab in DevTools for request details and verify server logs.
 - [ ] Optionally, add more logging to fetch calls in client/script.js for better debugging.
+- [ ] Confirm DNS is properly configured (A record for krushnrajsinhjadeja.com points to Vercel IPs: 76.76.21.21, 76.76.21.22).
