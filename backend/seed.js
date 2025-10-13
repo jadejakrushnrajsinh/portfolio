@@ -2,10 +2,17 @@ import mongoose from "mongoose";
 import Project from "./models/Project.js";
 
 mongoose
-  .connect("mongodb://localhost:27017/portfolio", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    process.env.MONGO_URL ||
+      process.env.DATABASE_URL ||
+      process.env.MONGODB_URI ||
+      process.env.MONGO_URI ||
+      "mongodb://localhost:27017/portfolio",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(async () => {
     console.log("Seeding projects...");
 
@@ -25,7 +32,7 @@ mongoose
         description:
           "A full-stack blog content management system with user authentication, post creation, and admin panel.",
         image:
-          "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "https://images.unsplash.com/photo-1486312338219-ce68e2c6f44d?w=400",
         tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
         liveDemo: "", // To be added after deployment
         github: "https://github.com/jadejakrushnrajsinh/blog-cms-fullstack",
