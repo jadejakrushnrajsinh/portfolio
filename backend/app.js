@@ -1,11 +1,11 @@
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-import bodyParser from "body-parser";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
-import path from "path";
-import dotenv from "dotenv";
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const path = require("path");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 3000;
 app.set("trust proxy", 1);
 
 // Security middleware
-import securityMiddleware from "./middleware/security.js";
+const securityMiddleware = require("./middleware/security.js");
 app.use(securityMiddleware);
 
 // Middleware
@@ -98,7 +98,7 @@ app.get("/api/test", (req, res) => {
 });
 
 // Admin login with validation
-import { validateLogin } from "./middleware/validation.js";
+const { validateLogin } = require("./middleware/validation.js");
 app.post("/api/admin/login", validateLogin, async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -148,7 +148,7 @@ app.post("/api/admin/login", validateLogin, async (req, res) => {
 // Admin route removed, served by separate server
 
 // Error handling middleware
-import errorHandler from "./middleware/errorHandler.js";
+const errorHandler = require("./middleware/errorHandler.js");
 app.use(errorHandler);
 
 // Start server
