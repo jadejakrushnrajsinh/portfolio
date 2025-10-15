@@ -86,7 +86,7 @@ async function loadProjects() {
   }
 
   // 🚀 FIXED: Added correct backend URL
-  const API_BASE_URL = "https://nodejs-production-da51.up.railway.app";
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://nodejs-production-da51.up.railway.app";
   const url = `${API_BASE_URL}/api/projects`;
 
   try {
@@ -234,7 +234,7 @@ document
     const messageDiv = document.getElementById("form-message");
 
     // 🚀 FIXED: Added correct backend URL for contact form
-    const API_BASE_URL = "https://nodejs-production-da51.up.railway.app";
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://nodejs-production-da51.up.railway.app";
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/contact`, {
