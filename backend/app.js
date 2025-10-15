@@ -28,7 +28,8 @@ app.use(securityMiddleware);
 // Middleware
 app.use(
   cors({
-    origin: "*",
+    origin: ["https://krushnrajsinhjadeja.com", "https://krushnrajsinhjadeja.vercel.app"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
