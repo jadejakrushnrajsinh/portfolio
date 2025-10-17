@@ -56,10 +56,10 @@ window.addEventListener("DOMContentLoaded", () => {
   const emailInput = document.querySelector('input[placeholder="Email"]');
 
   const savedName = localStorage.getItem("contactName");
-  const savedEmail = localStorage.getItem("contactEmail");
+  const email = localStorage.getItem("contactEmail");
 
   if (savedName) nameInput.value = savedName;
-  if (savedEmail) emailInput.value = savedEmail;
+  if (email) emailInput.value = email;
 });
 
 // Add loading animation to CTA button
@@ -85,12 +85,62 @@ async function loadProjects() {
     footer.innerHTML = `&copy; ${currentYear} Krushnraj Sinh Jadeja. All rights reserved.`;
   }
 
-  // Auto-detect environment for projects API
+  // 🚀 FIXED: Added correct backend URL
   const API_BASE_URL =
-    window.location.hostname === "localhost"
-      ? "http://localhost:5000"
-      : "https://nodejs-production-0738.up.railway.app";
+    process.env.NEXT_PUBLIC_API_URL ||
+    "https://nodejs-production-da51.up.railway.app";
   const url = `${API_BASE_URL}/api/projects`;
+
+  // Define fallback projects
+  const fallbackProjects = [
+    {
+      title: "Amazon Clone",
+      description:
+        "A full-stack e-commerce website clone of Amazon, featuring user authentication, product listings, shopping cart, and order management.",
+      summary:
+        "Problem: Need for scalable online shopping platform. Solution: Built MERN stack app with secure auth, real-time cart, and admin dashboard.",
+      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400",
+      tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
+      liveDemo: "https://jadejakrushnrajsinh.github.io/amazon-clone/",
+      github: "https://github.com/jadejakrushnrajsinh/amazon-clone",
+    },
+    {
+      title: "Blog CMS Fullstack",
+      description:
+        "A full-stack blog content management system with user authentication, post creation, and admin panel.",
+      summary:
+        "Problem: Managing blog content efficiently. Solution: Full-stack CMS with JWT auth, CRUD operations, and responsive UI for drafts/published posts.",
+      image:
+        "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
+      liveDemo: "",
+      github: "https://github.com/jadejakrushnrajsinh/blog-cms-fullstack",
+    },
+    {
+      title: "Task Manager",
+      description:
+        "A simple task management application to organize and track daily tasks.",
+      summary:
+        "Problem: Tracking personal tasks without tools. Solution: Vanilla JS app with add/edit/delete functionality, local storage persistence.",
+      image:
+        "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400",
+      tech: ["HTML", "CSS", "JavaScript"],
+      liveDemo: "https://jadejakrushnrajsinh.github.io/task-manager/",
+      github: "https://github.com/jadejakrushnrajsinh/task-manager",
+    },
+    {
+      title: "Weather Sphere",
+      description:
+        "A weather application that displays current weather and forecasts using API integration.",
+      summary:
+        "Problem: Accessing weather data intuitively. Solution: JS app with OpenWeather API, 5-day forecasts, and admin search tracking via charts.",
+      image:
+        "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400",
+      tech: ["HTML", "CSS", "JavaScript"],
+      liveDemo: "https://jadejakrushnrajsinh.github.io/weather-sphere/",
+      github: "https://github.com/jadejakrushnrajsinh/weather-sphere",
+    },
+  ];
 
   try {
     const response = await fetch(url);
@@ -98,61 +148,16 @@ async function loadProjects() {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const projects = await response.json();
-    displayProjects(projects);
+    // Handle empty project array gracefully by using fallback
+    if (projects.length === 0) {
+      displayProjects(fallbackProjects);
+    } else {
+      displayProjects(projects);
+    }
   } catch (error) {
     console.error("Error fetching projects:", error);
     // Fallback to hardcoded projects if API fails
-    const projects = [
-      {
-        title: "Amazon Clone",
-        description:
-          "A full-stack e-commerce website clone of Amazon, featuring user authentication, product listings, shopping cart, and order management.",
-        summary:
-          "Problem: Need for scalable online shopping platform. Solution: Built MERN stack app with secure auth, real-time cart, and admin dashboard.",
-        image:
-          "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400",
-        tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
-        liveDemo: "https://jadejakrushnrajsinh.github.io/amazon-clone/",
-        github: "https://github.com/jadejakrushnrajsinh/amazon-clone",
-      },
-      {
-        title: "Blog CMS Fullstack",
-        description:
-          "A full-stack blog content management system with user authentication, post creation, and admin panel.",
-        summary:
-          "Problem: Managing blog content efficiently. Solution: Full-stack CMS with JWT auth, CRUD operations, and responsive UI for drafts/published posts.",
-        image:
-          "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
-        liveDemo: "",
-        github: "https://github.com/jadejakrushnrajsinh/blog-cms-fullstack",
-      },
-      {
-        title: "Task Manager",
-        description:
-          "A simple task management application to organize and track daily tasks.",
-        summary:
-          "Problem: Tracking personal tasks without tools. Solution: Vanilla JS app with add/edit/delete functionality, local storage persistence.",
-        image:
-          "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400",
-        tech: ["HTML", "CSS", "JavaScript"],
-        liveDemo: "https://jadejakrushnrajsinh.github.io/task-manager/",
-        github: "https://github.com/jadejakrushnrajsinh/task-manager",
-      },
-      {
-        title: "Weather Sphere",
-        description:
-          "A weather application that displays current weather and forecasts using API integration.",
-        summary:
-          "Problem: Accessing weather data intuitively. Solution: JS app with OpenWeather API, 5-day forecasts, and admin search tracking via charts.",
-        image:
-          "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400",
-        tech: ["HTML", "CSS", "JavaScript"],
-        liveDemo: "https://jadejakrushnrajsinh.github.io/weather-sphere/",
-        github: "https://github.com/jadejakrushnrajsinh/weather-sphere",
-      },
-    ];
-    displayProjects(projects);
+    displayProjects(fallbackProjects);
   }
 }
 
@@ -170,7 +175,11 @@ function displayProjects(projects) {
     projectCard.className = "project-card";
     projectCard.innerHTML = `
       <div class="project-image">
-        <img src="${project.image}" alt="Screenshot of ${
+        <img src="${project.image}?w=400" srcset="${
+      project.image
+    }?w=400 400w, ${
+      project.image
+    }?w=800 800w" sizes="(max-width: 600px) 400px, 800px" alt="Screenshot of ${
       project.title
     } project" loading="lazy">
       </div>
@@ -195,7 +204,11 @@ function displayProjects(projects) {
           <a href="portfolio-single.html?id=${
             project._id
           }" class="project-link">View Details</a>
-    <span class="project-link coming-soon">Live Demo Coming Soon</span>
+          ${
+            project.liveDemo
+              ? `<a href="${project.liveDemo}" class="project-link" target="_blank">Live Demo</a>`
+              : '<span class="project-link coming-soon">Live Demo Coming Soon</span>'
+          }
           ${
             project.github
               ? `<a href="${project.github}" class="project-link" target="_blank">GitHub</a>`
@@ -228,11 +241,10 @@ document
 
     const messageDiv = document.getElementById("form-message");
 
-    // Auto-detect environment for contact API
+    // 🚀 FIXED: Added correct backend URL for contact form
     const API_BASE_URL =
-      window.location.hostname === "localhost"
-        ? "http://localhost:5000"
-        : "https://nodejs-production-0738.up.railway.app";
+      process.env.NEXT_PUBLIC_API_URL ||
+      "https://nodejs-production-da51.up.railway.app";
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/contact`, {

@@ -1,13 +1,13 @@
-import express from "express";
+const express = require("express");
 const router = express.Router();
-import Project from "../models/Project.js";
-import { authenticateToken } from "../middleware/auth.js";
-import {
+const Project = require("../models/Project.js");
+const { authenticateToken } = require("../middleware/auth.js");
+const {
   validateProject,
   validateProjectId,
-} from "../middleware/validation.js";
+} = require("../middleware/validation.js");
 
-// GET /api/projects
+// GET /projects
 router.get("/", async (req, res) => {
   try {
     const projects = await Project.find().sort({ createdAt: -1 });
@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// POST /api/projects
+// POST /projects
 router.post("/", authenticateToken, validateProject, async (req, res) => {
   try {
     const { title, description, image, tech, liveDemo, github } = req.body;
@@ -43,7 +43,7 @@ router.post("/", authenticateToken, validateProject, async (req, res) => {
   }
 });
 
-// PUT /api/projects/:id
+// PUT /projects/:id
 router.put("/:id", authenticateToken, validateProjectId, async (req, res) => {
   try {
     const { id } = req.params;
@@ -69,7 +69,7 @@ router.put("/:id", authenticateToken, validateProjectId, async (req, res) => {
   }
 });
 
-// DELETE /api/projects/:id
+// DELETE /projects/:id
 router.delete(
   "/:id",
   authenticateToken,
@@ -91,4 +91,4 @@ router.delete(
   }
 );
 
-export default router;
+module.exports = router;

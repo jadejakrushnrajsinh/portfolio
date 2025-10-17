@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd backend
+cd backend || exit
 
 npm start

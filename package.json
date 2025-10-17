@@ -2,7 +2,8 @@
   "name": "portfolio-fullstack",
   "version": "1.0.0",
   "description": "Full-stack portfolio website",
-  "main": "backend/app.js",
+  "type": "module",
+  "main": "app.js",
   "scripts": {
     "start": "node backend/app.js",
     "dev": "nodemon backend/app.js",

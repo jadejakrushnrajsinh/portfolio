@@ -1,11 +1,11 @@
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-import bodyParser from "body-parser";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
-import path from "path";
-import dotenv from "dotenv";
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const path = require("path");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
@@ -18,14 +18,21 @@ console.log("Environment variables loaded:", {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust proxy for Railway deployment
+app.set("trust proxy", 1);
+
 // Security middleware
-import securityMiddleware from "./middleware/security.js";
+const securityMiddleware = require("./middleware/security.js");
 app.use(securityMiddleware);
 
 // Middleware
 app.use(
   cors({
-    origin: "*", // For development; change to your frontend URL in production
+    origin: [
+      "https://krushnrajsinhjadeja.com",
+      "https://krushnrajsinhjadeja.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
@@ -42,11 +49,11 @@ app.get("/", (req, res) => {
 
 // Connect to MongoDB - Use Railway's internal MongoDB service
 const mongoUrl =
-  process.env.DATABASE_URL || // Railway sets this for linked MongoDB
   process.env.MONGO_URL ||
+  process.env.DATABASE_URL ||
   process.env.MONGODB_URI ||
   process.env.MONGO_URI ||
-  "mongodb://mongodb:27017/portfolio"; // Internal Railway MongoDB hostname
+  "mongodb://localhost:27017/portfolio"; // Use env var for production
 
 console.log(
   `Environment variables check: MONGO_URL=${!!process.env
@@ -65,21 +72,38 @@ mongoose
   .then(() => console.log("MongoDB connected successfully"))
   .catch((err) => {
     console.error("MongoDB connection error:", err);
-    if (process.env.NODE_ENV === "production") {
-      console.error("Exiting due to MongoDB connection failure in production");
-      process.exit(1);
-    }
+    console.log("Falling back to local MongoDB for development");
+    // Fallback to local MongoDB
+    mongoose
+      .connect("mongodb://localhost:27017/portfolio", {
+        serverSelectionTimeoutMS: 5000,
+      })
+      .then(() => console.log("Connected to local MongoDB"))
+      .catch((localErr) => {
+        console.error("Local MongoDB connection failed:", localErr);
+        if (process.env.NODE_ENV === "production") {
+          console.error(
+            "Exiting due to MongoDB connection failure in production"
+          );
+          process.exit(1);
+        }
+      });
   });
 
 // Routes
-import contactRoute from "./routes/contact.js";
-import projectsRoute from "./routes/projects.js";
+const contactRoute = require("./routes/contact.js");
+const projectsRoute = require("./routes/projects.js");
 app.use("/api/contact", contactRoute);
 app.use("/api/projects", projectsRoute);
 
+// Test route to verify API is working
+app.get("/test", (req, res) => {
+  res.json({ message: "API is working!", timestamp: new Date().toISOString() });
+});
+
 // Admin login with validation
-import { validateLogin } from "./middleware/validation.js";
-app.post("/api/admin/login", validateLogin, async (req, res) => {
+const { validateLogin } = require("./middleware/validation.js");
+app.post("/admin/login", validateLogin, async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -90,7 +114,14 @@ app.post("/api/admin/login", validateLogin, async (req, res) => {
     const adminPasswordHash =
       process.env.ADMIN_PASSWORD_HASH ||
       "$2b$10$qMIsYs7cL12zUNpDIe4xde2c00D7kMB7gZRLTfIqciJs92Smc/LA2";
-    const jwtSecret = process.env.JWT_SECRET || "default_jwt_secret_key";
+    const jwtSecret = process.env.JWT_SECRET;
+
+    if (!jwtSecret) {
+      console.error(
+        "JWT_SECRET environment variable is not set. Please set a secure JWT_SECRET in your Railway environment variables for security."
+      );
+      process.exit(1);
+    }
 
     if (email !== adminEmail) {
       console.log("Email does not match");
@@ -121,7 +152,7 @@ app.post("/api/admin/login", validateLogin, async (req, res) => {
 // Admin route removed, served by separate server
 
 // Error handling middleware
-import errorHandler from "./middleware/errorHandler.js";
+const errorHandler = require("./middleware/errorHandler.js");
 app.use(errorHandler);
 
 // Start server

@@ -8,8 +8,27 @@
   ],
   "routes": [
     {
+      "src": "/api/(.*)",
+      "dest": "https://nodejs-production-da51.up.railway.app/api/$1"
+    },
+    {
+      "src": "/",
+      "dest": "/client/index.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/client/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;"
+        }
+      ]
     }
   ]
 }

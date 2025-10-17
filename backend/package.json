@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "Full-stack portfolio website",
   "homepage": ".",
-  "type": "module",
+  "type": "commonjs",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node --max-old-space-size=1024 app.js",
     "dev": "nodemon server.js",
+    "seed": "node seed.js",
     "build": "echo 'static site'"
   },
   "dependencies": {

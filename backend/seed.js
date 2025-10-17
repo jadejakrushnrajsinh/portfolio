@@ -1,11 +1,18 @@
-import mongoose from "mongoose";
-import Project from "./models/Project.js";
+const mongoose = require("mongoose");
+const Project = require("./models/Project.js");
 
 mongoose
-  .connect("mongodb://localhost:27017/portfolio", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    process.env.MONGO_URL ||
+      process.env.DATABASE_URL ||
+      process.env.MONGODB_URI ||
+      process.env.MONGO_URI ||
+      "mongodb://localhost:27017/portfolio",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(async () => {
     console.log("Seeding projects...");
 
@@ -21,10 +28,11 @@ mongoose
         github: "https://github.com/jadejakrushnrajsinh/amazon-clone", // Assuming repo
       },
       {
-        title: "CMC Full Stack",
+        title: "Blog CMS Fullstack",
         description:
           "A full-stack blog content management system with user authentication, post creation, and admin panel.",
-        image: "https://images.unsplash.com/photo-jLwVAUtLOAQ?w=400",
+        image:
+          "https://images.unsplash.com/photo-1486312338219-ce68e2c6f44d?w=400",
         tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
         liveDemo: "", // To be added after deployment
         github: "https://github.com/jadejakrushnrajsinh/blog-cms-fullstack",

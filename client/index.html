@@ -326,10 +326,10 @@
                         </div>
                     </div>
                     <form class="contact-form" id="contact-form">
-                        <input type="text" name="name" placeholder="Name" required />
-                        <input type="email" name="email" placeholder="Email" required />
-                        <input type="text" name="subject" placeholder="Subject" required />
-                        <textarea name="message" placeholder="Message" required></textarea>
+                        <input type="text" name="name" placeholder="Name" autocomplete="name" required />
+                        <input type="email" name="email" placeholder="Email" autocomplete="email" required />
+                        <input type="text" name="subject" placeholder="Subject" autocomplete="off" required />
+                        <textarea name="message" placeholder="Message" autocomplete="off" required></textarea>
                         <button type="submit" class="cta-button">Send Message</button>
                     </form>
                     <div id="form-message"></div>
@@ -353,11 +353,7 @@
         </div>
     </footer>
 
-    <script>
-        // Set API base URL for Railway backend
-        // window.API_BASE_URL = "https://your-railway-app.railway.app";
-    </script>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>
