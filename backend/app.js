@@ -93,8 +93,8 @@ mongoose
 // Routes
 const contactRoute = require("./routes/contact.js");
 const projectsRoute = require("./routes/projects.js");
-app.use("/contact", contactRoute);
-app.use("/projects", projectsRoute);
+app.use("/api/contact", contactRoute);
+app.use("/api/projects", projectsRoute);
 
 // Test route to verify API is working
 app.get("/test", (req, res) => {
