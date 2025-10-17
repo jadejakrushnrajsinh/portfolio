@@ -1,3 +1,4 @@
+wgat ?
 <!DOCTYPE html>
 <html lang="en">
 
@@ -711,7 +712,7 @@
 
             try {
                 const apiBase = window.API_BASE_URL || "";
-                const response = await fetch(`${apiBase}/api/contact`, {
+                const response = await fetch(`${apiBase}/contact`, {
                     headers: getAuthHeaders()
                 });
                 const messages = await response.json();
@@ -796,7 +797,7 @@
 
             try {
                 const apiBase = window.API_BASE_URL || "";
-                const response = await fetch(`${apiBase}/api/contact/${id}`, {
+                const response = await fetch(`${apiBase}/contact/${id}`, {
                     method: 'DELETE',
                     headers: getAuthHeaders()
                 });
@@ -871,7 +872,7 @@
 
             try {
                 const apiBase = window.API_BASE_URL || "";
-                const response = await fetch(`${apiBase}/api/projects`, {
+                const response = await fetch(`${apiBase}/projects`, {
                     headers: getAuthHeaders()
                 });
                 const projects = await response.json();
@@ -947,7 +948,7 @@
 
             try {
                 const apiBase = window.API_BASE_URL || "";
-                const response = await fetch(`${apiBase}/api/projects/${id}`, {
+                const response = await fetch(`${apiBase}/projects/${id}`, {
                     method: 'DELETE',
                     headers: getAuthHeaders()
                 });
@@ -1009,7 +1010,7 @@
             try {
                 const apiBase = window.API_BASE_URL || "";
                 const method = projectId ? 'PUT' : 'POST';
-                const url = projectId ? `${apiBase}/api/projects/${projectId}` : `${apiBase}/api/projects`;
+                const url = projectId ? `${apiBase}/projects/${projectId}` : `${apiBase}/projects`;
 
                 const response = await fetch(url, {
                     method: method,

@@ -28,7 +28,10 @@ app.use(securityMiddleware);
 // Middleware
 app.use(
   cors({
-    origin: ["https://krushnrajsinhjadeja.com", "https://krushnrajsinhjadeja.vercel.app"],
+    origin: [
+      "https://krushnrajsinhjadeja.com",
+      "https://krushnrajsinhjadeja.vercel.app",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -90,17 +93,17 @@ mongoose
 // Routes
 const contactRoute = require("./routes/contact.js");
 const projectsRoute = require("./routes/projects.js");
-app.use("/api/contact", contactRoute);
-app.use("/api/projects", projectsRoute);
+app.use("/contact", contactRoute);
+app.use("/projects", projectsRoute);
 
 // Test route to verify API is working
-app.get("/api/test", (req, res) => {
+app.get("/test", (req, res) => {
   res.json({ message: "API is working!", timestamp: new Date().toISOString() });
 });
 
 // Admin login with validation
 const { validateLogin } = require("./middleware/validation.js");
-app.post("/api/admin/login", validateLogin, async (req, res) => {
+app.post("/admin/login", validateLogin, async (req, res) => {
   try {
     const { email, password } = req.body;
 

@@ -1,5 +1,5 @@
-import helmet from "helmet";
-import rateLimit from "express-rate-limit";
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -12,8 +12,10 @@ const limiter = rateLimit({
       req.headers["x-forwarded-for"] === undefined ||
       req.ip === "127.0.0.1" ||
       req.path === "/" ||
-      req.path === "/api/test" ||
-      req.path.startsWith("/api/")
+      req.path === "/test" ||
+      req.path.startsWith("/projects") ||
+      req.path.startsWith("/contact") ||
+      req.path.startsWith("/admin")
     );
   },
 });
@@ -54,4 +56,4 @@ const securityMiddleware = [
   },
 ];
 
-export default securityMiddleware;
+module.exports = securityMiddleware;

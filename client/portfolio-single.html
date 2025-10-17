@@ -95,7 +95,7 @@
 
             // Use API_BASE_URL if set, else relative for local/Netlify
             const apiBase = window.API_BASE_URL || "";
-            const url = `${apiBase}/api/projects`;
+            const url = `${apiBase}/projects`;
 
             try {
                 const response = await fetch(url);

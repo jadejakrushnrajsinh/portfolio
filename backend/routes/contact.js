@@ -4,7 +4,7 @@ const Message = require("../models/Message.js");
 const { authenticateToken } = require("../middleware/auth.js");
 const { validateContact } = require("../middleware/validation.js");
 
-// POST /api/contact
+// POST /contact
 router.post("/", validateContact, async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
@@ -20,7 +20,7 @@ router.post("/", validateContact, async (req, res) => {
   }
 });
 
-// GET /api/contact (optional, for admin to view messages)
+// GET /contact (optional, for admin to view messages)
 router.get("/", authenticateToken, async (req, res) => {
   try {
     const messages = await Message.find().sort({ createdAt: -1 });
@@ -31,7 +31,7 @@ router.get("/", authenticateToken, async (req, res) => {
   }
 });
 
-// DELETE /api/contact/:id
+// DELETE /contact/:id
 router.delete("/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
