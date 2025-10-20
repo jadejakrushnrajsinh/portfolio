@@ -1,15 +1,47 @@
-# Simplify API by Removing /api Prefix
+# Task: Simplify API Calls by Removing /api Prefix
 
-## Tasks
+## Current Status
+- Backend URLs are set to da51
+- CORS enabled for krushnrajsinhjadeja.com
+- Routes currently use /api prefix (/api/projects, /api/contact)
+- Frontend calls absolute URLs to backend directly
+- Vercel proxies /api/* to backend
 
-- [ ] Update backend/app.js: Change route mounts from /api/contact and /api/projects to /contact and /projects
-- [ ] Update client/script.js: Change API calls from /api/projects and /api/contact to /projects and /contact
-- [ ] Update client/admin/index.html: Change admin login call to /admin/login
-- [ ] Update client/admin/dashboard.html: Change API calls to /projects and /contact
-- [ ] Update client/login.html: Change admin login call to /admin/login
-- [ ] Update vercel.json: Change proxy rules from /api/\* to /projects, /contact, /admin/login
-- [ ] Update backend/middleware/security.js: Update skip paths for rate limiting
-- [ ] Test backend locally with new routes
-- [ ] Redeploy backend on Railway
-- [ ] Redeploy frontend on Vercel
-- [ ] Test frontend functionality
+## Issue
+- Frontend is calling wrong backend URL (0738 instead of da51)
+- Getting 404 because routes mismatch (/projects vs /api/projects)
+
+## Plan
+1. Update backend routes to remove /api prefix
+   - Change /api/projects to /projects
+   - Change /api/contact to /contact
+   - Update app.js to use new routes
+2. Update frontend API calls to use relative URLs
+   - client/script.js: Change absolute URLs to relative /projects, /contact
+   - client/admin/index.html: Update to relative URLs
+   - client/admin/dashboard.html: Update to relative URLs
+   - client/login.html: Update to relative URLs
+3. Update vercel.json to proxy new routes
+   - Change /api/(.*) to proxy /projects and /contact to backend
+4. Ensure CORS is enabled
+5. Redeploy backend on Railway
+6. Redeploy frontend on Vercel
+7. Test backend: https://nodejs-production-da51.up.railway.app/projects
+8. Test frontend: https://krushnrajsinhjadeja.com
+
+## Dependent Files
+- backend/app.js
+- backend/routes/projects.js
+- backend/routes/contact.js
+- client/script.js
+- client/admin/index.html
+- client/admin/dashboard.html
+- client/login.html
+- vercel.json
+
+## Followup Steps
+- Run backend locally to test routes
+- Deploy backend
+- Deploy frontend
+- Test endpoints
+- Verify no "Failed to fetch" errors

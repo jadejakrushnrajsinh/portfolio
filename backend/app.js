@@ -103,7 +103,7 @@ app.get("/test", (req, res) => {
 
 // Admin login with validation
 const { validateLogin } = require("./middleware/validation.js");
-app.post("/admin/login", validateLogin, async (req, res) => {
+app.post("/api/admin/login", validateLogin, async (req, res) => {
   try {
     const { email, password } = req.body;
 
