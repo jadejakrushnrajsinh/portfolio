@@ -233,10 +233,20 @@ document
   .addEventListener("submit", async (e) => {
     e.preventDefault();
     const form = e.target;
+    const submitButton = form.querySelector('button[type="submit"]');
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
 
     const messageDiv = document.getElementById("form-message");
+
+    // Clear previous messages
+    messageDiv.textContent = "";
+    messageDiv.style.color = "";
+
+    // Disable button and show loading state
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending...";
+    submitButton.style.backgroundColor = "#666";
 
     // Use relative URLs for Vercel proxy
     try {
@@ -253,14 +263,59 @@ document
       if (response.ok) {
         messageDiv.textContent = result.message || "Message sent successfully!";
         messageDiv.style.color = "green";
+        messageDiv.style.backgroundColor = "#d4edda";
+        messageDiv.style.padding = "10px";
+        messageDiv.style.borderRadius = "5px";
+        messageDiv.style.border = "1px solid #c3e6cb";
         form.reset();
+
+        // Reset button to success state
+        submitButton.textContent = "Message Sent!";
+        submitButton.style.backgroundColor = "#28a745";
+        submitButton.disabled = false;
+
+        // Reset button text after 3 seconds
+        setTimeout(() => {
+          submitButton.textContent = "Send Message";
+          submitButton.style.backgroundColor = "";
+        }, 3000);
       } else {
         messageDiv.textContent = result.error || "Failed to send message.";
         messageDiv.style.color = "red";
+        messageDiv.style.backgroundColor = "#f8d7da";
+        messageDiv.style.padding = "10px";
+        messageDiv.style.borderRadius = "5px";
+        messageDiv.style.border = "1px solid #f5c6cb";
+
+        // Reset button to error state
+        submitButton.textContent = "Failed - Try Again";
+        submitButton.style.backgroundColor = "#dc3545";
+        submitButton.disabled = false;
+
+        // Reset button text after 3 seconds
+        setTimeout(() => {
+          submitButton.textContent = "Send Message";
+          submitButton.style.backgroundColor = "";
+        }, 3000);
       }
     } catch (error) {
       console.error("Error sending message:", error);
       messageDiv.textContent = "Failed to send message. Please try again.";
       messageDiv.style.color = "red";
+      messageDiv.style.backgroundColor = "#f8d7da";
+      messageDiv.style.padding = "10px";
+      messageDiv.style.borderRadius = "5px";
+      messageDiv.style.border = "1px solid #f5c6cb";
+
+      // Reset button to error state
+      submitButton.textContent = "Failed - Try Again";
+      submitButton.style.backgroundColor = "#dc3545";
+      submitButton.disabled = false;
+
+      // Reset button text after 3 seconds
+      setTimeout(() => {
+        submitButton.textContent = "Send Message";
+        submitButton.style.backgroundColor = "";
+      }, 3000);
     }
   });
