@@ -31,6 +31,7 @@ app.use(
     origin: [
       "https://krushnrajsinhjadeja.com",
       "https://krushnrajsinhjadeja.vercel.app",
+      "https://new-portfolio-if8140g2w-jadejakrushnrajsinhs-projects.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
@@ -93,8 +94,8 @@ mongoose
 // Routes
 const contactRoute = require("./routes/contact.js");
 const projectsRoute = require("./routes/projects.js");
-app.use("/api/contact", contactRoute);
-app.use("/api/projects", projectsRoute);
+app.use("/contact", contactRoute);
+app.use("/projects", projectsRoute);
 
 // Test route to verify API is working
 app.get("/test", (req, res) => {
@@ -103,7 +104,7 @@ app.get("/test", (req, res) => {
 
 // Admin login with validation
 const { validateLogin } = require("./middleware/validation.js");
-app.post("/api/admin/login", validateLogin, async (req, res) => {
+app.post("/admin/login", validateLogin, async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -146,6 +147,68 @@ app.post("/api/admin/login", validateLogin, async (req, res) => {
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Seed endpoint for development/production seeding
+app.post("/seed", async (req, res) => {
+  try {
+    console.log("Seeding database...");
+    const Project = require("./models/Project.js");
+
+    const projects = [
+      {
+        title: "Amazon Clone",
+        description:
+          "A full-stack e-commerce website clone of Amazon, featuring user authentication, product listings, shopping cart, and order management.",
+        image:
+          "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400",
+        tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
+        liveDemo: "https://jadejakrushnrajsinh.github.io/amazon-clone/",
+        github: "https://github.com/jadejakrushnrajsinh/amazon-clone",
+      },
+      {
+        title: "Blog CMS Fullstack",
+        description:
+          "A full-stack blog content management system with user authentication, post creation, and admin panel.",
+        image:
+          "https://images.unsplash.com/photo-1486312338219-ce68e2c6f44d?w=400",
+        tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
+        liveDemo: "",
+        github: "https://github.com/jadejakrushnrajsinh/blog-cms-fullstack",
+      },
+      {
+        title: "Task Manager",
+        description:
+          "A simple task management application to organize and track daily tasks.",
+        image:
+          "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400",
+        tech: ["HTML", "CSS", "JavaScript"],
+        liveDemo: "https://jadejakrushnrajsinh.github.io/task-manager/",
+        github: "https://github.com/jadejakrushnrajsinh/task-manager",
+      },
+      {
+        title: "Weather Sphere",
+        description:
+          "A weather application that displays current weather and forecasts using API integration.",
+        image:
+          "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400",
+        tech: ["HTML", "CSS", "JavaScript"],
+        liveDemo: "https://jadejakrushnrajsinh.github.io/weather-sphere/",
+        github: "https://github.com/jadejakrushnrajsinh/weather-sphere",
+      },
+    ];
+
+    await Project.deleteMany({});
+    await Project.insertMany(projects);
+    console.log("Sample projects added");
+    res.json({
+      message: "Database seeded successfully",
+      count: projects.length,
+    });
+  } catch (error) {
+    console.error("Seeding error:", error);
+    res.status(500).json({ error: "Failed to seed database" });
   }
 });
 

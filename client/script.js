@@ -85,11 +85,8 @@ async function loadProjects() {
     footer.innerHTML = `&copy; ${currentYear} Krushnraj Sinh Jadeja. All rights reserved.`;
   }
 
-  // 🚀 FIXED: Added correct backend URL
-  const API_BASE_URL =
-    process.env.NEXT_PUBLIC_API_URL ||
-    "https://nodejs-production-da51.up.railway.app";
-  const url = `${API_BASE_URL}/projects`;
+  // 🚀 FIXED: Use relative URLs for Vercel proxy
+  const url = "/projects";
 
   // Define fallback projects
   const fallbackProjects = [
@@ -241,10 +238,8 @@ document
 
     const messageDiv = document.getElementById("form-message");
 
-    // 🚀 FIXED: Added correct backend URL for contact form
-    const API_BASE_URL =
-      process.env.NEXT_PUBLIC_API_URL ||
-      "https://nodejs-production-da51.up.railway.app";
+    // 🚀 FIXED: Use relative URLs for Vercel proxy
+    const API_BASE_URL = "";
 
     try {
       const response = await fetch(`${API_BASE_URL}/contact`, {
