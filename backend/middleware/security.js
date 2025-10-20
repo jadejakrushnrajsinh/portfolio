@@ -40,9 +40,10 @@ const securityMiddleware = [
         ],
         connectSrc: [
           "'self'",
-          "https://nodejs-production-da51.up.railway.app",
+          "https://portfolio-production-1f19.up.railway.app",
           "https://krushnrajsinhjadeja.com",
           "https://www.krushnrajsinhjadeja.com",
+          "https://new-portfolio-rce5vpi2c-jadejakrushnrajsinhs-projects.vercel.app",
         ],
       },
     },

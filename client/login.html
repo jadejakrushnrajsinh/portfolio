@@ -101,14 +101,9 @@
             const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('login-error');
 
-            // Auto-detect environment for login API
-            const API_BASE_URL =
-                window.location.hostname === "localhost"
-                    ? "http://localhost:5000"
-                    : "";
-
+            // Use relative URLs for Vercel proxy
             try {
-                const response = await fetch(`${API_BASE_URL}/admin/login`, {
+                const response = await fetch(`/admin/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -85,7 +85,7 @@ async function loadProjects() {
     footer.innerHTML = `&copy; ${currentYear} Krushnraj Sinh Jadeja. All rights reserved.`;
   }
 
-  // 🚀 FIXED: Use relative URLs for Vercel proxy
+  // Use relative URLs for Vercel proxy
   const url = "/projects";
 
   // Define fallback projects
@@ -238,11 +238,9 @@ document
 
     const messageDiv = document.getElementById("form-message");
 
-    // 🚀 FIXED: Use relative URLs for Vercel proxy
-    const API_BASE_URL = "";
-
+    // Use relative URLs for Vercel proxy
     try {
-      const response = await fetch(`${API_BASE_URL}/contact`, {
+      const response = await fetch(`/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

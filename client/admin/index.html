@@ -565,9 +565,7 @@
 
 
     <script>
-        // Auto-detect environment for admin login
-        window.API_BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000' : '';
-
+        // Use relative URLs for Vercel proxy
         document.getElementById('login-form').addEventListener('submit', async function (e) {
             e.preventDefault();
 
@@ -576,8 +574,7 @@
             const errorDiv = document.getElementById('login-error');
 
             try {
-                const apiBase = window.API_BASE_URL || "";
-                const response = await fetch(`${apiBase}/admin/login`, {
+                const response = await fetch(`/admin/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -31,7 +31,7 @@ app.use(
     origin: [
       "https://krushnrajsinhjadeja.com",
       "https://krushnrajsinhjadeja.vercel.app",
-      "https://new-portfolio-if8140g2w-jadejakrushnrajsinhs-projects.vercel.app",
+      "https://new-portfolio-rce5vpi2c-jadejakrushnrajsinhs-projects.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
@@ -48,13 +48,13 @@ app.get("/", (req, res) => {
   res.send("Backend is running");
 });
 
-// Connect to MongoDB - Use Railway's internal MongoDB service
+// Connect to MongoDB - Use Railway's MongoDB service
 const mongoUrl =
   process.env.MONGO_URL ||
   process.env.DATABASE_URL ||
   process.env.MONGODB_URI ||
   process.env.MONGO_URI ||
-  "mongodb://localhost:27017/portfolio"; // Use env var for production
+  "mongodb://mongo:jrRQUutvvEAcMcecEXOziUSSKFVIETNg@mongodb.railway.internal:27017/portfolio"; // Railway MongoDB
 
 console.log(
   `Environment variables check: MONGO_URL=${!!process.env

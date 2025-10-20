@@ -9,15 +9,15 @@
   "rewrites": [
     {
       "source": "/projects",
-      "destination": "https://nodejs-production-da51.up.railway.app/projects"
+      "destination": "https://portfolio-production-1f19.up.railway.app/projects"
     },
     {
       "source": "/contact",
-      "destination": "https://nodejs-production-da51.up.railway.app/contact"
+      "destination": "https://portfolio-production-1f19.up.railway.app/contact"
     },
     {
       "source": "/admin/login",
-      "destination": "https://nodejs-production-da51.up.railway.app/admin/login"
+      "destination": "https://portfolio-production-1f19.up.railway.app/admin/login"
     },
     {
       "source": "/(.*)",

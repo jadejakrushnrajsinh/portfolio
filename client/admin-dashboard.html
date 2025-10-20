@@ -133,14 +133,9 @@
             const tableBody = document.getElementById('submissions-table');
             const totalEl = document.getElementById('total-submissions');
 
-            // Auto-detect environment for contact API
-            const API_BASE_URL =
-                window.location.hostname === "localhost"
-                    ? "http://localhost:5000"
-                    : "https://nodejs-production-da51.up.railway.app";
-
+            // Use relative URLs for Vercel proxy
             try {
-                const response = await fetch(`${API_BASE_URL}/contact`, {
+                const response = await fetch(`/contact`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
