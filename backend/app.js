@@ -91,18 +91,7 @@ mongoose
       });
   });
 
-// Routes
-const contactRoute = require("./routes/contact.js");
-const projectsRoute = require("./routes/projects.js");
-app.use("/api/contact", contactRoute);
-app.use("/api/projects", projectsRoute);
-
-// Test route to verify API is working
-app.get("/test", (req, res) => {
-  res.json({ message: "API is working!", timestamp: new Date().toISOString() });
-});
-
-// Basic API routes for immediate testing
+// Basic API routes for immediate testing (defined before route files to take precedence)
 app.get("/api/health", (req, res) => {
   res.json({ status: "healthy", timestamp: new Date() });
 });
@@ -118,6 +107,17 @@ app.post("/api/contact", (req, res) => {
   const { name, email, message } = req.body;
   console.log("Contact form received:", { name, email, message });
   res.json({ success: true, message: "Message received!" });
+});
+
+// Routes
+const contactRoute = require("./routes/contact.js");
+const projectsRoute = require("./routes/projects.js");
+app.use("/api/contact", contactRoute);
+app.use("/api/projects", projectsRoute);
+
+// Test route to verify API is working
+app.get("/test", (req, res) => {
+  res.json({ message: "API is working!", timestamp: new Date().toISOString() });
 });
 
 // Admin login with validation
