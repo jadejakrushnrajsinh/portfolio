@@ -94,12 +94,30 @@ mongoose
 // Routes
 const contactRoute = require("./routes/contact.js");
 const projectsRoute = require("./routes/projects.js");
-app.use("/contact", contactRoute);
-app.use("/projects", projectsRoute);
+app.use("/api/contact", contactRoute);
+app.use("/api/projects", projectsRoute);
 
 // Test route to verify API is working
 app.get("/test", (req, res) => {
   res.json({ message: "API is working!", timestamp: new Date().toISOString() });
+});
+
+// Basic API routes for immediate testing
+app.get("/api/health", (req, res) => {
+  res.json({ status: "healthy", timestamp: new Date() });
+});
+
+app.get("/api/projects", (req, res) => {
+  res.json([
+    { id: 1, title: "Project 1", description: "First project" },
+    { id: 2, title: "Project 2", description: "Second project" },
+  ]);
+});
+
+app.post("/api/contact", (req, res) => {
+  const { name, email, message } = req.body;
+  console.log("Contact form received:", { name, email, message });
+  res.json({ success: true, message: "Message received!" });
 });
 
 // Admin login with validation
