@@ -10,16 +10,10 @@
     {
       "source": "/api/(.*)",
       "destination": "https://nodejs-production-da51.up.railway.app/api/$1"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/",
-      "dest": "/client/index.html"
     },
     {
-      "src": "/(.*)",
-      "dest": "/client/$1"
+      "source": "/(.*)",
+      "destination": "/client/$1"
     }
   ],
   "headers": [
