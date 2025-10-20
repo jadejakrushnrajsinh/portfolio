@@ -8,15 +8,15 @@
   ],
   "rewrites": [
     {
-      "source": "/api/projects",
+      "source": "/projects",
       "destination": "https://portfolio-production-1f19.up.railway.app/api/projects"
     },
     {
-      "source": "/api/contact",
+      "source": "/contact",
       "destination": "https://portfolio-production-1f19.up.railway.app/api/contact"
     },
     {
-      "source": "/api/admin/login",
+      "source": "/admin/login",
       "destination": "https://portfolio-production-1f19.up.railway.app/api/admin/login"
     },
     {
