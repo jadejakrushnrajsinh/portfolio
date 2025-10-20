@@ -8,16 +8,16 @@
   ],
   "rewrites": [
     {
-      "source": "/projects",
-      "destination": "https://portfolio-production-1f19.up.railway.app/projects"
+      "source": "/api/projects",
+      "destination": "https://portfolio-production-1f19.up.railway.app/api/projects"
     },
     {
-      "source": "/contact",
-      "destination": "https://portfolio-production-1f19.up.railway.app/contact"
+      "source": "/api/contact",
+      "destination": "https://portfolio-production-1f19.up.railway.app/api/contact"
     },
     {
-      "source": "/admin/login",
-      "destination": "https://portfolio-production-1f19.up.railway.app/admin/login"
+      "source": "/api/admin/login",
+      "destination": "https://portfolio-production-1f19.up.railway.app/api/admin/login"
     },
     {
       "source": "/(.*)",

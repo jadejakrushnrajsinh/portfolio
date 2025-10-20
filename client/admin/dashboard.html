@@ -678,7 +678,9 @@ wgat ?
     </div>
 
     <script>
-        // Use relative URLs for Vercel proxy
+        // Set API base URL for Railway backend
+        window.API_BASE_URL = "https://portfolio-production-1f19.up.railway.app";
+
         function getAuthHeaders() {
             const token = localStorage.getItem('adminToken');
             return {
