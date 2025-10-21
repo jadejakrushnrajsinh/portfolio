@@ -59,7 +59,8 @@ const mongoUrl =
 console.log(
   `Environment variables check: MONGO_URL=${!!process.env
     .MONGO_URL}, DATABASE_URL=${!!process.env
-    .DATABASE_URL}, MONGODB_URI=${!!process.env
+    .DATABASE_URL}, MONGODB_URI=${!!process.env.MONGODB_URI}`
+);
 
 const maskedUrl = mongoUrl.replace(/:([^:@]{4})[^:@]*@/, ":$1****@");
 console.log(`Connecting to MongoDB at: ${maskedUrl}`);
@@ -180,16 +181,16 @@ app.post("/seed", async (req, res) => {
         liveDemo: "https://jadejakrushnrajsinh.github.io/amazon-clone/",
         github: "https://github.com/jadejakrushnrajsinh/amazon-clone",
       },
-    {
-      title: "Blog CMS Fullstack",
-      description:
-        "A full-stack blog content management system with user authentication, post creation, and admin panel.",
-      image:
-        "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
-      liveDemo: "",
-      github: "https://github.com/jadejakrushnrajsinh/blog-cms-fullstack",
-    },
+      {
+        title: "Blog CMS Fullstack",
+        description:
+          "A full-stack blog content management system with user authentication, post creation, and admin panel.",
+        image:
+          "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
+        liveDemo: "",
+        github: "https://github.com/jadejakrushnrajsinh/blog-cms-fullstack",
+      },
       {
         title: "Task Manager",
         description:

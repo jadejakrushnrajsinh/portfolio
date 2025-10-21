@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+const bcrypt = require("bcryptjs");
 
 const password = "jadeja.kirtiba"; // Change this to your desired password
 
