@@ -277,8 +277,8 @@ document
     messageDiv.style.color = "";
 
     // Validate form data before sending
-    const { name, email, message } = data;
-    if (!name || !email || !message) {
+    const { name, email, subject, message } = data;
+    if (!name || !email || !subject || !message) {
       messageDiv.textContent = "All fields are required.";
       messageDiv.style.color = "red";
       messageDiv.style.backgroundColor = "#f8d7da";
