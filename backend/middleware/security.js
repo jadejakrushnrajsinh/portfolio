@@ -14,7 +14,6 @@ const limiter = rateLimit({
       req.path === "/" ||
       req.path === "/test" ||
       req.path.startsWith("/projects") ||
-      req.path.startsWith("/contact") ||
       req.path.startsWith("/admin")
     );
   },
@@ -40,7 +39,7 @@ const securityMiddleware = [
         ],
         connectSrc: [
           "'self'",
-          "https://portfolio-production-1f19.up.railway.app",
+          "https://portfolio-production-8eed.up.railway.app",
           "https://krushnrajsinhjadeja.com",
           "https://www.krushnrajsinhjadeja.com",
           "https://new-portfolio-rce5vpi2c-jadejakrushnrajsinhs-projects.vercel.app",
