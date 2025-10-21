@@ -25,8 +25,18 @@ app.set("trust proxy", true);
 const securityMiddleware = require("./middleware/security.js");
 app.use(securityMiddleware);
 
-// Rate limiter
+// Rate limiter for /api/contact
 const rateLimit = require("express-rate-limit");
+const contactLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 100,
+  message: "Too many requests",
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use("/api/contact", contactLimiter);
+
+// Global rate limiter
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
   max: 100, // 100 requests per IP per minute
@@ -41,17 +51,22 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // Middleware
+const allowedOrigins = [
+  "https://www.krushnrajsinhjadeja.com",
+  "https://krushnrajsinhjadeja.com",
+  "https://krushnrajsinhjadeja.vercel.app",
+];
 app.use(
   cors({
-    origin: [
-      "https://krushnrajsinhjadeja.com",
-      "https://www.krushnrajsinhjadeja.com",
-      "https://krushnrajsinhjadeja.vercel.app",
-      "https://new-portfolio-rce5vpi2c-jadejakrushnrajsinhs-projects.vercel.app",
-    ], // Accept requests from specific frontends
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed"));
+      }
+    },
+    methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: false, // no cookies
   })
 );
 app.use(bodyParser.json());
