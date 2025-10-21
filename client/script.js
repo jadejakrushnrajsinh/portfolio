@@ -291,6 +291,61 @@ document
       return;
     }
 
+    // Additional client-side validation matching backend
+    if (name.trim().length < 2) {
+      messageDiv.textContent = "Name must be at least 2 characters long.";
+      messageDiv.style.color = "red";
+      messageDiv.style.backgroundColor = "#f8d7da";
+      messageDiv.style.padding = "10px";
+      messageDiv.style.borderRadius = "5px";
+      messageDiv.style.border = "1px solid #f5c6cb";
+      submitButton.disabled = false;
+      submitButton.textContent = "Send Message";
+      submitButton.style.backgroundColor = "";
+      return;
+    }
+
+    if (subject.trim().length < 3) {
+      messageDiv.textContent = "Subject must be at least 3 characters long.";
+      messageDiv.style.color = "red";
+      messageDiv.style.backgroundColor = "#f8d7da";
+      messageDiv.style.padding = "10px";
+      messageDiv.style.borderRadius = "5px";
+      messageDiv.style.border = "1px solid #f5c6cb";
+      submitButton.disabled = false;
+      submitButton.textContent = "Send Message";
+      submitButton.style.backgroundColor = "";
+      return;
+    }
+
+    if (message.trim().length < 10) {
+      messageDiv.textContent = "Message must be at least 10 characters long.";
+      messageDiv.style.color = "red";
+      messageDiv.style.backgroundColor = "#f8d7da";
+      messageDiv.style.padding = "10px";
+      messageDiv.style.borderRadius = "5px";
+      messageDiv.style.border = "1px solid #f5c6cb";
+      submitButton.disabled = false;
+      submitButton.textContent = "Send Message";
+      submitButton.style.backgroundColor = "";
+      return;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      messageDiv.textContent = "Please provide a valid email address.";
+      messageDiv.style.color = "red";
+      messageDiv.style.backgroundColor = "#f8d7da";
+      messageDiv.style.padding = "10px";
+      messageDiv.style.borderRadius = "5px";
+      messageDiv.style.border = "1px solid #f5c6cb";
+      submitButton.disabled = false;
+      submitButton.textContent = "Send Message";
+      submitButton.style.backgroundColor = "";
+      return;
+    }
+
     // Disable button and show loading state
     submitButton.disabled = true;
     submitButton.textContent = "Sending...";
@@ -331,7 +386,13 @@ document
           submitButton.style.backgroundColor = "";
         }, 3000);
       } else {
-        messageDiv.textContent = result.error || "Failed to send message.";
+        // Handle validation errors from backend
+        if (result.errors && Array.isArray(result.errors)) {
+          const errorMessages = result.errors.map((err) => err.msg).join(" ");
+          messageDiv.textContent = errorMessages;
+        } else {
+          messageDiv.textContent = result.error || "Failed to send message.";
+        }
         messageDiv.style.color = "red";
         messageDiv.style.backgroundColor = "#f8d7da";
         messageDiv.style.padding = "10px";

@@ -1,6 +1,6 @@
-- [ ] Check Git status and commit/push changes
-- [ ] Install Vercel CLI if not present
-- [ ] Deploy frontend to Vercel
-- [ ] Delete old Vercel deployments
-- [ ] Install Railway CLI if not present
+- [x] Check Git status and commit/push changes
+- [x] Install Vercel CLI if not present
+- [x] Deploy frontend to Vercel
+- [x] Delete old Vercel deployments
+- [x] Install Railway CLI if not present
 - [ ] Redeploy backend on Railway
