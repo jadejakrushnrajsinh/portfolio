@@ -19,7 +19,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Trust proxy for Railway deployment
-app.set("trust proxy", 1);
+app.set("trust proxy", true);
 
 // Security middleware
 const securityMiddleware = require("./middleware/security.js");
