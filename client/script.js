@@ -109,8 +109,8 @@ async function loadProjects() {
     footer.innerHTML = `&copy; ${currentYear} Krushnraj Sinh Jadeja. All rights reserved.`;
   }
 
-  // Use relative URLs for Vercel proxy
-  const url = "/api/projects";
+  // Use full backend URL for direct API calls
+  const url = "https://portfolio-production-8eed.up.railway.app/api/projects";
 
   // Define fallback projects (same as seeded data)
   const fallbackProjects = [
@@ -276,20 +276,38 @@ document
     messageDiv.textContent = "";
     messageDiv.style.color = "";
 
+    // Validate form data before sending
+    const { name, email, message } = data;
+    if (!name || !email || !message) {
+      messageDiv.textContent = "All fields are required.";
+      messageDiv.style.color = "red";
+      messageDiv.style.backgroundColor = "#f8d7da";
+      messageDiv.style.padding = "10px";
+      messageDiv.style.borderRadius = "5px";
+      messageDiv.style.border = "1px solid #f5c6cb";
+      submitButton.disabled = false;
+      submitButton.textContent = "Send Message";
+      submitButton.style.backgroundColor = "";
+      return;
+    }
+
     // Disable button and show loading state
     submitButton.disabled = true;
     submitButton.textContent = "Sending...";
     submitButton.style.backgroundColor = "#666";
 
-    // Use relative URLs for Vercel proxy
+    // Use full backend URL for direct API calls
     try {
-      const response = await fetch(`/api/contact`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `https://portfolio-production-8eed.up.railway.app/api/contact`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const result = await response.json();
 
