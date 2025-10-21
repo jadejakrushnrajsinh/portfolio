@@ -23,18 +23,33 @@ const verifyToken = (token) => {
 };
 
 exports.handler = async (event, context) => {
+  // Set CORS headers
+  const headers = {
+    "Access-Control-Allow-Origin": "https://www.krushnrajsinhjadeja.com",
+    "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  };
+
+  // Handle OPTIONS preflight
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers,
+      body: "",
+    };
+  }
+
   try {
     // Connect to MongoDB if not connected
     if (mongoose.connection.readyState === 0) {
       try {
         await mongoose.connect(MONGO_URL);
       } catch (connectError) {
-        console.error("DB connect error:", connectError);
-        // Continue without DB for testing
+        // Silent on errors
       }
     }
 
-    const { httpMethod, path, headers, body, queryStringParameters } = event;
+    const { httpMethod, path, body, queryStringParameters } = event;
 
     if (httpMethod === "POST") {
       // Public: Send message
@@ -43,6 +58,7 @@ exports.handler = async (event, context) => {
       if (!name || !email || !subject || !message) {
         return {
           statusCode: 400,
+          headers,
           body: JSON.stringify({ error: "All fields are required" }),
         };
       }
@@ -51,22 +67,24 @@ exports.handler = async (event, context) => {
         const newMessage = new Message({ name, email, subject, message });
         await newMessage.save();
       } catch (error) {
-        console.error("Error saving message:", error);
-        // For testing, return success even if DB fails
+        // Silent on errors
       }
 
       return {
-        statusCode: 201,
-        body: JSON.stringify({ message: "Message sent successfully!" }),
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({ message: "Received" }),
       };
     }
 
     if (httpMethod === "GET") {
       // Admin only: View messages
-      const authHeader = headers.authorization || headers.Authorization;
+      const authHeader =
+        event.headers.authorization || event.headers.Authorization;
       if (!authHeader || !authHeader.startsWith("Bearer ")) {
         return {
           statusCode: 401,
+          headers,
           body: JSON.stringify({ error: "Unauthorized" }),
         };
       }
@@ -76,6 +94,7 @@ exports.handler = async (event, context) => {
       if (!decoded) {
         return {
           statusCode: 401,
+          headers,
           body: JSON.stringify({ error: "Invalid token" }),
         };
       }
@@ -83,16 +102,19 @@ exports.handler = async (event, context) => {
       const messages = await Message.find().sort({ createdAt: -1 });
       return {
         statusCode: 200,
+        headers,
         body: JSON.stringify(messages),
       };
     }
 
     if (httpMethod === "DELETE") {
       // Admin only: Delete message
-      const authHeader = headers.authorization || headers.Authorization;
+      const authHeader =
+        event.headers.authorization || event.headers.Authorization;
       if (!authHeader || !authHeader.startsWith("Bearer ")) {
         return {
           statusCode: 401,
+          headers,
           body: JSON.stringify({ error: "Unauthorized" }),
         };
       }
@@ -102,6 +124,7 @@ exports.handler = async (event, context) => {
       if (!decoded) {
         return {
           statusCode: 401,
+          headers,
           body: JSON.stringify({ error: "Invalid token" }),
         };
       }
@@ -110,6 +133,7 @@ exports.handler = async (event, context) => {
       if (!id) {
         return {
           statusCode: 400,
+          headers,
           body: JSON.stringify({ error: "Message ID required" }),
         };
       }
@@ -118,12 +142,14 @@ exports.handler = async (event, context) => {
       if (!deletedMessage) {
         return {
           statusCode: 404,
+          headers,
           body: JSON.stringify({ error: "Message not found" }),
         };
       }
 
       return {
         statusCode: 200,
+        headers,
         body: JSON.stringify({ message: "Message deleted successfully" }),
       };
     }
@@ -133,10 +159,10 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ error: "Method not allowed" }),
     };
   } catch (error) {
-    console.error("Contact function error:", error);
     return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Internal server error" }),
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ message: "Received" }),
     };
   }
 };

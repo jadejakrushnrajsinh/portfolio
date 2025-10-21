@@ -350,19 +350,15 @@ document
     submitButton.textContent = "Sending...";
     submitButton.style.backgroundColor = "#666";
 
-    // Use full backend URL for direct API calls
+    // Use proxied API endpoint to avoid CORS
     try {
-      const response = await fetch(
-        `https://portfolio-production-8eed.up.railway.app/api/contact`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          mode: "cors",
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
       const result = await response.json();
 
