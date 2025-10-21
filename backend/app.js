@@ -178,15 +178,14 @@ app.post("/seed", async (req, res) => {
         image:
           "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400",
         tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
-        liveDemo: "https://jadejakrushnrajsinh.github.io/amazon-clone/",
+        liveDemo: "",
         github: "https://github.com/jadejakrushnrajsinh/amazon-clone",
       },
       {
         title: "Blog CMS Fullstack",
         description:
           "A full-stack blog content management system with user authentication, post creation, and admin panel.",
-        image:
-          "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        image: "https://nicetwo.com/uploads/f21aa-whatisblog.png",
         tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
         liveDemo: "",
         github: "https://github.com/jadejakrushnrajsinh/blog-cms-fullstack",
@@ -198,7 +197,7 @@ app.post("/seed", async (req, res) => {
         image:
           "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400",
         tech: ["HTML", "CSS", "JavaScript"],
-        liveDemo: "https://jadejakrushnrajsinh.github.io/task-manager/",
+        liveDemo: "",
         github: "https://github.com/jadejakrushnrajsinh/task-manager",
       },
       {
@@ -208,7 +207,7 @@ app.post("/seed", async (req, res) => {
         image:
           "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400",
         tech: ["HTML", "CSS", "JavaScript"],
-        liveDemo: "https://jadejakrushnrajsinh.github.io/weather-sphere/",
+        liveDemo: "",
         github: "https://github.com/jadejakrushnrajsinh/weather-sphere",
       },
     ];

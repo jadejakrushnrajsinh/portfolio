@@ -130,15 +130,14 @@ async function loadProjects() {
         "A full-stack e-commerce website clone of Amazon, featuring user authentication, product listings, shopping cart, and order management.",
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400",
       tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
-      liveDemo: "https://jadejakrushnrajsinh.github.io/amazon-clone/",
+      liveDemo: "",
       github: "https://github.com/jadejakrushnrajsinh/amazon-clone",
     },
     {
       title: "Blog CMS Fullstack",
       description:
         "A full-stack blog content management system with user authentication, post creation, and admin panel.",
-      image:
-        "https://images.unsplash.com/photo-1486312338219-ce68e2c6f44d?w=400",
+      image: "https://nicetwo.com/uploads/f21aa-whatisblog.png",
       tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
       liveDemo: "",
       github: "https://github.com/jadejakrushnrajsinh/blog-cms-fullstack",
@@ -150,7 +149,7 @@ async function loadProjects() {
       image:
         "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400",
       tech: ["HTML", "CSS", "JavaScript"],
-      liveDemo: "https://jadejakrushnrajsinh.github.io/task-manager/",
+      liveDemo: "",
       github: "https://github.com/jadejakrushnrajsinh/task-manager",
     },
     {
@@ -160,7 +159,7 @@ async function loadProjects() {
       image:
         "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400",
       tech: ["HTML", "CSS", "JavaScript"],
-      liveDemo: "https://jadejakrushnrajsinh.github.io/weather-sphere/",
+      liveDemo: "",
       github: "https://github.com/jadejakrushnrajsinh/weather-sphere",
     },
   ];
