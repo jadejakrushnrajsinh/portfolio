@@ -43,7 +43,12 @@ app.use(limiter);
 // Middleware
 app.use(
   cors({
-    origin: "*", // Accept requests from any frontend
+    origin: [
+      "https://krushnrajsinhjadeja.com",
+      "https://www.krushnrajsinhjadeja.com",
+      "https://krushnrajsinhjadeja.vercel.app",
+      "https://new-portfolio-rce5vpi2c-jadejakrushnrajsinhs-projects.vercel.app",
+    ], // Accept requests from specific frontends
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: false, // no cookies
