@@ -4,6 +4,8 @@
 
 - [x] Edit backend/app.js to configure CORS for all origins and add rate-limiter with silent handling
 - [x] Edit backend/routes/contact.js to update the POST endpoint logic to match black box requirements (no validation, silent error handling, respond 200 always)
+- [x] Remove rate limit skip for /contact in security.js
+- [x] Update CSP connectSrc URL in security.js
 - [x] Test the contact form endpoint to ensure it works without CORS errors and logs no errors
 - [x] Verify rate-limiter prevents abuse silently
 
