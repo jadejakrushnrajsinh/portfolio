@@ -8,15 +8,16 @@ router.post("/", async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
 
-    // Save to MongoDB (no validation, black box)
-    await Message.create({ name, email, subject, message });
+    if (!name || !email || !message) {
+      throw new Error("Missing fields");
+    }
 
-    // Respond silently (black box style)
+    // Save to MongoDB
+    await Message.create({ name, email, subject, message });
     res.status(200).json({ message: "Received" });
   } catch (err) {
-    // Prevent backend error logs from showing
-    console.error("Contact endpoint handled an error");
-    res.status(200).json({ message: "Received" });
+    console.error(err); // log silently
+    res.status(200).json({ message: "Received" }); // always respond 200
   }
 });
 
