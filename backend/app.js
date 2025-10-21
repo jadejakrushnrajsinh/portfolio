@@ -90,22 +90,9 @@ mongoose
       });
   });
 
-// Basic API routes for immediate testing (defined before route files to take precedence)
+// Basic API routes for immediate testing
 app.get("/api/health", (req, res) => {
   res.json({ status: "healthy", timestamp: new Date() });
-});
-
-app.get("/api/projects", (req, res) => {
-  res.json([
-    { id: 1, title: "Project 1", description: "First project" },
-    { id: 2, title: "Project 2", description: "Second project" },
-  ]);
-});
-
-app.post("/api/contact", (req, res) => {
-  const { name, email, message } = req.body;
-  console.log("Contact form received:", { name, email, message });
-  res.json({ success: true, message: "Message received!" });
 });
 
 // Routes
@@ -174,6 +161,16 @@ app.post("/seed", async (req, res) => {
     const Project = require("./models/Project.js");
 
     const projects = [
+      {
+        title: "Portfolio Website",
+        description:
+          "A full-stack portfolio website showcasing projects, skills, and contact form with admin dashboard for content management.",
+        image:
+          "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400",
+        tech: ["Node.js", "Express", "MongoDB", "HTML", "CSS", "JavaScript"],
+        liveDemo: "https://www.krushnrajsinhjadeja.com/",
+        github: "https://github.com/jadejakrushnrajsinh/portfolio",
+      },
       {
         title: "Amazon Clone",
         description:

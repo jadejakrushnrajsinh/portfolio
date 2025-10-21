@@ -108,3 +108,7 @@ public
 ehthumbs.db
 Thumbs.db
 .vercel
+
+
+#Ignore vscode AI rules
+.github\instructions\codacy.instructions.md
