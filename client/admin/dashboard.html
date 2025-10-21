@@ -106,7 +106,7 @@
         // Load projects
         async function loadProjects() {
             try {
-                const response = await fetch('/api/projects', {
+                const response = await fetch('https://portfolio-production-8eed.up.railway.app/api/projects', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const projects = await response.json();
@@ -129,7 +129,7 @@
         // Load messages
         async function loadMessages() {
             try {
-                const response = await fetch('/api/contact', {
+                const response = await fetch('https://portfolio-production-8eed.up.railway.app/api/contact', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const messages = await response.json();
@@ -158,7 +158,7 @@
         // Edit project
         function editProject(id) {
             // Fetch project details and populate form
-            fetch(`/api/projects/${id}`, {
+            fetch(`https://portfolio-production-8eed.up.railway.app/api/projects/${id}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             })
                 .then(res => res.json())
@@ -178,7 +178,7 @@
         // Delete project
         function deleteProject(id) {
             if (confirm('Are you sure you want to delete this project?')) {
-                fetch(`/api/projects/${id}`, {
+                fetch(`https://portfolio-production-8eed.up.railway.app/api/projects/${id}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` }
                 })
@@ -189,7 +189,7 @@
         // Delete message
         function deleteMessage(id) {
             if (confirm('Are you sure you want to delete this message?')) {
-                fetch(`/api/contact/${id}`, {
+                fetch(`https://portfolio-production-8eed.up.railway.app/api/contact/${id}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` }
                 })
@@ -211,7 +211,7 @@
             };
 
             const method = id ? 'PUT' : 'POST';
-            const url = id ? `/api/projects/${id}` : '/api/projects';
+            const url = id ? `https://portfolio-production-8eed.up.railway.app/api/projects/${id}` : 'https://portfolio-production-8eed.up.railway.app/api/projects';
 
             try {
                 await fetch(url, {
