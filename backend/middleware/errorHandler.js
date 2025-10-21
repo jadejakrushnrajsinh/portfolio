@@ -5,6 +5,11 @@ const errorHandler = (err, req, res, next) => {
   // Log error
   console.error(err);
 
+  // For /api/contact, always respond 200 with "Received" to make it black box
+  if (req.path === "/api/contact" && req.method === "POST") {
+    return res.status(200).json({ message: "Received" });
+  }
+
   // Mongoose bad ObjectId
   if (err.name === "CastError") {
     const message = "Resource not found";

@@ -2,26 +2,18 @@ const express = require("express");
 const router = express.Router();
 const Message = require("../models/Message.js");
 const { authenticateToken } = require("../middleware/auth.js");
-const { validateContact } = require("../middleware/validation.js");
 
 // POST /contact
 router.post("/", async (req, res) => {
   try {
-    const { name, email, subject, message } = req.body;
-
-    if (!name || !email || !message) {
-      return res.status(400).json({ message: "Missing fields" });
-    }
+    const { name, email, message } = req.body;
 
     // Save to MongoDB
-    const newMessage = await Message.create({ name, email, subject, message });
-
-    // Respond silently (black box style)
+    await Message.create({ name, email, message });
     res.status(200).json({ message: "Received" });
   } catch (err) {
-    // Prevent backend error logs from showing
-    console.error("Contact endpoint handled an error");
-    res.status(200).json({ message: "Received" });
+    console.error(err); // log silently
+    res.status(200).json({ message: "Received" }); // always respond 200
   }
 });
 
