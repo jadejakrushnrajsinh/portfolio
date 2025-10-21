@@ -1,3 +1,24 @@
+// Active navigation highlighting
+function updateActiveNav() {
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".nav-menu a");
+
+  let current = "";
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop - 100;
+    if (window.pageYOffset >= sectionTop) {
+      current = section.getAttribute("id");
+    }
+  });
+
+  navLinks.forEach((link) => {
+    link.classList.remove("active");
+    if (link.getAttribute("href") === `#${current}`) {
+      link.classList.add("active");
+    }
+  });
+}
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
@@ -11,6 +32,9 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     }
   });
 });
+
+// Update active nav on scroll
+window.addEventListener("scroll", updateActiveNav);
 
 // Hamburger menu toggle
 const hamburger = document.querySelector(".hamburger");
