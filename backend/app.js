@@ -25,16 +25,28 @@ app.set("trust proxy", true);
 const securityMiddleware = require("./middleware/security.js");
 app.use(securityMiddleware);
 
+// Rate limiter
+const rateLimit = require("express-rate-limit");
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 100, // 100 requests per IP per minute
+  standardHeaders: true,
+  legacyHeaders: false,
+  trustProxy: false, // set to false to avoid permissive trust proxy error in dev
+  handler: (req, res) => {
+    // Instead of sending error, silently respond 429
+    res.status(429).json({ message: "Too many requests" });
+  },
+});
+app.use(limiter);
+
 // Middleware
 app.use(
   cors({
-    origin: [
-      "https://krushnrajsinhjadeja.com",
-      "https://krushnrajsinhjadeja.vercel.app",
-      "https://new-portfolio-rce5vpi2c-jadejakrushnrajsinhs-projects.vercel.app",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    origin: "*", // Accept requests from any frontend
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: false, // no cookies
   })
 );
 app.use(bodyParser.json());
