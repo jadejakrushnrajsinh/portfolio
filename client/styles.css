@@ -668,6 +668,14 @@ button:focus-visible {
   font-weight: 500;
   margin-right: 5px;
   margin-bottom: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.tech-badge:hover {
+  background: #2563eb;
+  color: white;
+  transform: scale(1.05);
 }
 
 .coming-soon {
@@ -685,6 +693,70 @@ button:focus-visible {
 
 .project-card:hover .project-link {
   color: #ff4500;
+}
+
+.live-demo {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.live-demo:hover {
+  background: linear-gradient(135deg, #218838, #1aa085);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.github-link {
+  background: linear-gradient(135deg, #333, #24292e);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.github-link:hover {
+  background: linear-gradient(135deg, #24292e, #1a1e22);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Active Navigation Highlight */
+.nav-menu a.active {
+  color: #ff4500;
+  font-weight: 600;
+}
+
+/* Improved Responsive Design */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .project-content {
+    padding: 20px;
+  }
+
+  .project-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .live-demo,
+  .github-link {
+    text-align: center;
+    margin-right: 0;
+  }
 }
 
 /* Responsive for Mobile (≤480px) */

@@ -172,6 +172,13 @@ function displayProjects(projects) {
   projects.forEach((project) => {
     const projectCard = document.createElement("div");
     projectCard.className = "project-card";
+
+    // Truncate description if too long
+    const truncatedDesc =
+      project.description.length > 150
+        ? project.description.substring(0, 150) + "..."
+        : project.description;
+
     projectCard.innerHTML = `
       <div class="project-image">
         <img src="${project.image}?w=400" srcset="${
@@ -184,7 +191,7 @@ function displayProjects(projects) {
       </div>
       <div class="project-content">
         <h3>${project.title}</h3>
-        <p>${project.description}</p>
+        <p>${truncatedDesc}</p>
         ${
           project.summary
             ? `<p class="project-summary"><strong>Problem → Solution:</strong> ${project.summary}</p>`
@@ -204,13 +211,13 @@ function displayProjects(projects) {
             project._id
           }" class="project-link">View Details</a>
           ${
-            project.liveDemo
-              ? `<a href="${project.liveDemo}" class="project-link" target="_blank">Live Demo</a>`
+            project.liveDemo && project.liveDemo.trim() !== ""
+              ? `<a href="${project.liveDemo}" class="project-link live-demo" target="_blank" rel="noopener noreferrer">Live Demo</a>`
               : '<span class="project-link coming-soon">Live Demo Coming Soon</span>'
           }
           ${
             project.github
-              ? `<a href="${project.github}" class="project-link" target="_blank">GitHub</a>`
+              ? `<a href="${project.github}" class="project-link github-link" target="_blank" rel="noopener noreferrer">GitHub</a>`
               : ""
           }
         </div>
