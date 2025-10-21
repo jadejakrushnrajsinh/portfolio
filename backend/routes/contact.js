@@ -6,14 +6,17 @@ const { authenticateToken } = require("../middleware/auth.js");
 // POST /contact
 router.post("/", async (req, res) => {
   try {
-    const { name, email, message } = req.body;
+    const { name, email, subject, message } = req.body;
 
-    // Save to MongoDB
-    await Message.create({ name, email, message });
+    // Save to MongoDB (no validation, black box)
+    await Message.create({ name, email, subject, message });
+
+    // Respond silently (black box style)
     res.status(200).json({ message: "Received" });
   } catch (err) {
-    console.error(err); // log silently
-    res.status(200).json({ message: "Received" }); // always respond 200
+    // Prevent backend error logs from showing
+    console.error("Contact endpoint handled an error");
+    res.status(200).json({ message: "Received" });
   }
 });
 
