@@ -110,7 +110,7 @@ async function loadProjects() {
   }
 
   // Use relative URLs for Vercel proxy
-  const url = "/projects";
+  const url = "/api/projects";
 
   // Define fallback projects (same as seeded data)
   const fallbackProjects = [
@@ -283,7 +283,7 @@ document
 
     // Use relative URLs for Vercel proxy
     try {
-      const response = await fetch(`/contact`, {
+      const response = await fetch(`/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
