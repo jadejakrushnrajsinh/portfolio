@@ -15,7 +15,9 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "https://new-portfolio-m3h1npiqy-jadejakrushnrajsinhs-projects.vercel.app",
+      "https://new-portfolio-ohezd7l55-jadejakrushnrajsinhs-projects.vercel.app",
+      "https://www.krushnrajsinhjadeja.com",
+      "https://krushnrajsinhjadeja.com",
       "http://localhost:3000",
     ],
     credentials: true,
