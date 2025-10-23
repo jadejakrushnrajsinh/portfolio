@@ -16,6 +16,9 @@ app.use(
   cors({
     origin: [
       "https://new-portfolio-p3n7hi67h-jadejakrushnrajsinhs-projects.vercel.app",
+      "https://new-portfolio-mtvye2hwk-jadejakrushnrajsinhs-projects.vercel.app",
+      "https://new-portfolio-f0xp72qww-jadejakrushnrajsinhs-projects.vercel.app",
+      "https://new-portfolio-a68ao4zvs-jadejakrushnrajsinhs-projects.vercel.app",
       "https://www.krushnrajsinhjadeja.com",
       "https://krushnrajsinhjadeja.com",
       "http://localhost:3000",
