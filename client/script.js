@@ -360,7 +360,18 @@ document
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
+      let result;
+      try {
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          result = await response.json();
+        } else {
+          result = { message: "Server returned non-JSON response" };
+        }
+      } catch (jsonError) {
+        console.error("JSON parse error:", jsonError);
+        result = { message: "Invalid response from server" };
+      }
 
       if (response.ok) {
         messageDiv.textContent = result.message || "Message sent successfully!";

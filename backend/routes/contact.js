@@ -9,15 +9,42 @@ router.post("/", async (req, res) => {
     const { name, email, subject, message } = req.body;
 
     if (!name || !email || !message) {
-      throw new Error("Missing fields");
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    // Additional validation
+    if (name.trim().length < 2) {
+      return res
+        .status(400)
+        .json({ error: "Name must be at least 2 characters long" });
+    }
+
+    if (subject && subject.trim().length < 3) {
+      return res
+        .status(400)
+        .json({ error: "Subject must be at least 3 characters long" });
+    }
+
+    if (message.trim().length < 10) {
+      return res
+        .status(400)
+        .json({ error: "Message must be at least 10 characters long" });
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res
+        .status(400)
+        .json({ error: "Please provide a valid email address" });
     }
 
     // Save to MongoDB
     await Message.create({ name, email, subject, message });
-    res.status(200).json({ message: "Received" });
+    res.status(201).json({ message: "Message sent successfully!" });
   } catch (err) {
-    console.error(err); // log silently
-    res.status(200).json({ message: "Received" }); // always respond 200
+    console.error("Error saving message:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
