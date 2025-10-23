@@ -1,54 +1,9 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "client/**",
-      "use": "@vercel/static"
-    }
-  ],
   "rewrites": [
-    {
-      "source": "/admin",
-      "destination": "/client/admin/index.html"
-    },
-    {
-      "source": "/projects",
-      "destination": "https://portfolio-production-8eed.up.railway.app/api/projects"
-    },
-    {
-      "source": "/contact",
-      "destination": "https://portfolio-production-8eed.up.railway.app/api/contact"
-    },
-    {
-      "source": "/admin/login",
-      "destination": "https://portfolio-production-8eed.up.railway.app/admin/login"
-    },
-    {
-      "source": "/api/projects",
-      "destination": "https://portfolio-production-8eed.up.railway.app/api/projects"
-    },
-    {
-      "source": "/api/contact",
-      "destination": "https://portfolio-production-8eed.up.railway.app/api/contact"
-    },
-    {
-      "source": "/admin/login",
-      "destination": "https://portfolio-production-8eed.up.railway.app/admin/login"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/client/$1"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; connect-src 'self' https:;"
-        }
-      ]
-    }
+    { "source": "/(.*)", "destination": "/client/index.html" },
+    { "source": "/api/projects", "destination": "https://portfolio-production-8eed.up.railway.app/api/projects" },
+    { "source": "/api/contact", "destination": "https://portfolio-production-8eed.up.railway.app/api/contact" },
+    { "source": "/api/auth/:path*", "destination": "https://portfolio-production-8eed.up.railway.app/api/auth/:path*" },
+    { "source": "/api/dashboard/:path*", "destination": "https://portfolio-production-8eed.up.railway.app/api/dashboard/:path*" }
   ]
 }

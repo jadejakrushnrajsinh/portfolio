@@ -138,7 +138,15 @@ app.get("/test", (req, res) => {
   res.json({ message: "API is working!", timestamp: new Date().toISOString() });
 });
 
-// Admin login with validation
+// Auth routes
+const authRoutes = require("./routes/auth.js");
+app.use("/api/auth", authRoutes);
+
+// Dashboard routes
+const dashboardRoutes = require("./routes/dashboard.js");
+app.use("/api/dashboard", dashboardRoutes);
+
+// Admin login with validation (legacy, keep for backward compatibility)
 const { validateLogin } = require("./middleware/validation.js");
 app.post("/admin/login", validateLogin, async (req, res) => {
   try {

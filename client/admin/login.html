@@ -134,7 +134,7 @@
             const password = document.getElementById('password').value;
 
             try {
-                const response = await fetch('/api/admin-login', {
+                const response = await fetch('/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -145,7 +145,12 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    localStorage.setItem('adminToken', data.token);
+                    const rememberMe = document.querySelector('input[type="checkbox"]').checked;
+                    if (rememberMe) {
+                        localStorage.setItem('authToken', data.token);
+                    } else {
+                        sessionStorage.setItem('authToken', data.token);
+                    }
                     window.location.href = '../admin-dashboard.html';
                 } else {
                     alert(data.error || 'Login failed');

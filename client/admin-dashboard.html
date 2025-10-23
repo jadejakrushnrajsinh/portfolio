@@ -561,30 +561,151 @@
         const toggleSidebar = document.getElementById('toggleSidebar');
         const sidebar = document.getElementById('sidebar');
 
+        const API_BASE_URL = 'https://portfolio-production-8eed.up.railway.app/api';
+
+        // Check for existing token on page load
+        window.addEventListener('DOMContentLoaded', function () {
+            const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+            if (token) {
+                loginPage.style.display = 'none';
+                dashboard.style.display = 'flex';
+                loadDashboardData();
+            }
+        });
+
         // Login Functionality
-        loginForm.addEventListener('submit', function (e) {
+        loginForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            // Simple validation (in a real app, this would be more secure)
-            if (username === 'admin' && password === 'password') {
-                loginPage.style.display = 'none';
-                dashboard.style.display = 'flex';
-            } else {
-                alert('Invalid credentials. Try admin/password');
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: username, password: password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('authToken', data.token);
+                    loginPage.style.display = 'none';
+                    dashboard.style.display = 'flex';
+                    loadDashboardData();
+                } else {
+                    alert(data.error || 'Login failed');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Login failed. Please try again.');
             }
         });
 
         // Logout Functionality
         logoutBtn.addEventListener('click', function (e) {
             e.preventDefault();
+            localStorage.removeItem('authToken');
+            sessionStorage.removeItem('authToken');
             dashboard.style.display = 'none';
             loginPage.style.display = 'flex';
             document.getElementById('username').value = '';
             document.getElementById('password').value = '';
         });
+
+        // Load Dashboard Data
+        async function loadDashboardData() {
+            const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+            if (!token) return;
+
+            try {
+                // Load stats
+                const statsResponse = await fetch(`${API_BASE_URL}/dashboard/stats`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (statsResponse.ok) {
+                    const stats = await statsResponse.json();
+                    updateStatsCards(stats);
+                } else {
+                    console.error('Failed to load stats:', statsResponse.status);
+                    // Fallback to demo data
+                    updateStatsCards({
+                        totalUsers: 12584,
+                        totalRevenue: 42389,
+                        totalOrders: 2458,
+                        conversionRate: 3.25
+                    });
+                }
+
+                // Load activity
+                const activityResponse = await fetch(`${API_BASE_URL}/dashboard/activity`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (activityResponse.ok) {
+                    const activity = await activityResponse.json();
+                    updateActivityTable(activity);
+                } else {
+                    console.error('Failed to load activity:', activityResponse.status);
+                    // Fallback to demo data
+                    updateActivityTable([
+                        { user: 'John Doe', action: 'Product Purchase', date: '2023-10-23', status: 'Completed' },
+                        { user: 'Sarah Smith', action: 'Account Registration', date: '2023-10-22', status: 'Completed' },
+                        { user: 'Mike Johnson', action: 'Payment Process', date: '2023-10-21', status: 'Pending' },
+                        { user: 'Emily Davis', action: 'Product Review', date: '2023-10-20', status: 'Completed' }
+                    ]);
+                }
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                // Fallback to demo data on error
+                updateStatsCards({
+                    totalUsers: 12584,
+                    totalRevenue: 42389,
+                    totalOrders: 2458,
+                    conversionRate: 3.25
+                });
+                updateActivityTable([
+                    { user: 'John Doe', action: 'Product Purchase', date: '2023-10-23', status: 'Completed' },
+                    { user: 'Sarah Smith', action: 'Account Registration', date: '2023-10-22', status: 'Completed' },
+                    { user: 'Mike Johnson', action: 'Payment Process', date: '2023-10-21', status: 'Pending' },
+                    { user: 'Emily Davis', action: 'Product Review', date: '2023-10-20', status: 'Completed' }
+                ]);
+            }
+        }
+
+        function updateStatsCards(stats) {
+            // Update the cards with real data
+            const cards = document.querySelectorAll('.card');
+            if (stats.totalUsers) {
+                cards[0].querySelector('h2').textContent = stats.totalUsers.toLocaleString();
+            }
+            if (stats.totalRevenue) {
+                cards[1].querySelector('h2').textContent = `$${stats.totalRevenue.toLocaleString()}`;
+            }
+            if (stats.totalOrders) {
+                cards[2].querySelector('h2').textContent = stats.totalOrders.toLocaleString();
+            }
+            if (stats.conversionRate) {
+                cards[3].querySelector('h2').textContent = `${stats.conversionRate}%`;
+            }
+        }
+
+        function updateActivityTable(activity) {
+            const tbody = document.querySelector('.recent-activity tbody');
+            tbody.innerHTML = '';
+            activity.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.user}</td>
+                    <td>${item.action}</td>
+                    <td>${new Date(item.date).toLocaleDateString()}</td>
+                    <td><span class="status ${item.status === 'Completed' ? 'active' : 'pending'}">${item.status}</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
 
         // Toggle Sidebar on Mobile
         toggleSidebar.addEventListener('click', function () {
