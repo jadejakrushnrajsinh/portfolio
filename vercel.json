@@ -8,6 +8,10 @@
   ],
   "rewrites": [
     {
+      "source": "/admin",
+      "destination": "/client/admin/index.html"
+    },
+    {
       "source": "/projects",
       "destination": "https://portfolio-production-8eed.up.railway.app/api/projects"
     },

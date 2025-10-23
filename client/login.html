@@ -116,12 +116,23 @@
                 if (response.ok) {
                     // Store JWT token
                     localStorage.setItem('adminToken', result.token);
-                    // Redirect to admin dashboard
-                    window.location.href = 'admin-dashboard.html';
+                    // Show success message
+                    errorDiv.textContent = 'Login successful! Redirecting to dashboard...';
+                    errorDiv.style.display = 'block';
+                    errorDiv.style.color = 'green';
+                    errorDiv.style.background = '#d4edda';
+                    errorDiv.style.border = '1px solid #c3e6cb';
+                    // Redirect to admin dashboard after short delay
+                    setTimeout(() => {
+                        window.location.href = 'admin-dashboard.html';
+                    }, 1000);
                 } else {
                     // Show error message
                     errorDiv.textContent = result.error || 'Login failed';
                     errorDiv.style.display = 'block';
+                    errorDiv.style.color = '#721c24';
+                    errorDiv.style.background = '#f8d7da';
+                    errorDiv.style.border = '1px solid #f5c6cb';
                 }
             } catch (error) {
                 console.error('Login error:', error);

@@ -144,7 +144,7 @@
                 });
 
                 if (response.status === 401) {
-                    // Token invalid, redirect to login
+                    // Token invalid or missing, redirect to login
                     localStorage.removeItem('adminToken');
                     window.location.href = 'login.html';
                     return;

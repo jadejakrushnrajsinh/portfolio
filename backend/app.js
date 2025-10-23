@@ -162,7 +162,7 @@ app.post("/admin/login", validateLogin, async (req, res) => {
 
     if (email !== adminEmail) {
       console.log("Email does not match");
-      return res.status(401).json({ error: "Email is not valid" });
+      return res.status(401).json({ error: "Incorrect password" });
     }
 
     const isValid = await bcrypt.compare(password, adminPasswordHash);
@@ -171,7 +171,7 @@ app.post("/admin/login", validateLogin, async (req, res) => {
 
     if (!isValid) {
       console.log("Password is invalid");
-      return res.status(401).json({ error: "Password is wrong" });
+      return res.status(401).json({ error: "Incorrect password" });
     }
 
     const token = jwt.sign({ email }, jwtSecret, {
